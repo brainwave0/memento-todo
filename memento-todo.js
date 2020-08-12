@@ -1,42 +1,76 @@
-function isDone() {
-    return entry().field("Repeat From") && entry().field("Repeat From").getTime() + entry().field("Repeat Interval") > Date.now()
-        || entry().field("Start At") && entry().field("Start At").getTime() > Date.now()
-        || entry().field("Cool down from") && entry().field("Cool down from").getTime() + entry().field("Cooldown") > Date.now();
-}
-function increaseCooldown() {
-    multCooldown(1.25);
-}
-function reduceCooldown() {
-    multCooldown(0.8);
-}
-function multCooldown(factor) {
-    entry().set("Cooldown", Math.max(entry().field("Cooldown") * factor, 480000));
-}
-function success() {
-    return elapsed() >= entry().field("Best time") * 0.8;
-}
-function setBestTime() {
-    entry().set("Best time", Math.max(elapsed(), entry().field("Best time")));
-}
-function elapsed() {
-    return Date.now() - entry().field("Repeat From").getTime()
+function start() {
+    // setTimer();
+    setTimerStart(Date.now());
 }
 function finish() {
-    entry().set("Cool down from", Date.now());
-    if (success()) {
-        reduceCooldown();
+    if (enjoyed()) {
+        increasePriority();
     } else {
-        increaseCooldown();
+        decreasePriority();
     }
-    setBestTime();
-    entry().set("Running", false);
+    setRuntime(runtime() + elapsed());
+    setPrevTime(elapsed());
 }
-function start() {
-    entry().set("Repeat From", Date.now());
-    entry().set("Running", true);
+function enjoyed() {
+    return arg("Enjoyed");
 }
-if (entry().field("Running")) {
-    finish();
-} else {
-    start();
+function increasePriority() {
+    setPriority(priority() + 1);
 }
+function setPriority(newValue) {
+    entry().set("Priority", newValue);
+}
+function priority() {
+    return entry().field("Priority");
+}
+function decreasePriority() {
+    setPriority(priority() - 1);
+}
+function setTimer() {
+    AndroidAlarm.timer(timeSlice() / 1000, name(), false);
+}
+function timeSlice() {
+    return prevTime();
+}
+function prevTime() {
+    return entry().field("Previous Time");
+}
+function toggleRunning() {
+    setRunning(!running());
+}
+function main() {
+    if (running()) {
+        finish();
+    } else {
+        start();
+    }
+    toggleRunning();
+}
+function setRunning(newValue) {
+    entry().set("Running", newValue);
+}
+function running() {
+    return entry().field("Running");
+}
+function setTimerStart(newValue) {
+    entry().set("Repeat From", newValue);
+}
+function setRuntime(newValue) {
+    entry().set("Runtime", newValue);
+}
+function timerStart() {
+    return entry().field("Repeat From");
+}
+function elapsed() {
+    return Date.now() - timerStart();
+}
+function setPrevTime(newValue) {
+    entry().set("Previous Time", newValue);
+}
+function name() {
+    return entry().field("Name");
+}
+function runtime() {
+  return entry().field("Runtime");
+}
+main();

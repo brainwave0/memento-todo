@@ -3,9 +3,9 @@ function start() {
     setTimerStart(Date.now());
 }
 function finish() {
-    if (enjoyed()) {
+    if (enjoyed() > 0) {
         increasePriority();
-    } else {
+    } else if (enjoyed() < 0) {
         decreasePriority();
     }
     setRuntime(runtime() + elapsed());

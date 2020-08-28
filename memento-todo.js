@@ -3,11 +3,6 @@ function start() {
     setTimerStart(Date.now());
 }
 function finish() {
-    if (enjoyed() > 0) {
-        increasePriority();
-    } else if (enjoyed() < 0) {
-        decreasePriority();
-    }
     setRuntime(runtime() + elapsed());
     setPrevTime(elapsed());
 }

@@ -1,10 +1,10 @@
-function start() {
+function start(task) {
     // setTimer();
-    setTimerStart(Date.now());
+    setTimerStart(task, Date.now());
 }
-function finish() {
-    setRuntime(runtime() + elapsed());
-    setPrevTime(elapsed());
+function finish(task) {
+    setRuntime(task, runtime() + elapsed());
+    setPrevTime(task, elapsed());
 }
 function enjoyed() {
     return arg("Enjoyed");
@@ -30,28 +30,30 @@ function timeSlice() {
 function prevTime() {
     return entry().field("Previous Time");
 }
-function toggleRunning() {
-    setRunning(!running());
+function toggleRunning(task) {
+    setRunning(task, !running(task));
 }
-function main() {
-    if (running()) {
-        finish();
+function main(task) {
+    if (running(task)) {
+        finish(task);
     } else {
-        start();
+        start(task);
     }
-    toggleRunning();
+    toggleRunning(task);
+    var parent = get_parent(task);
+    if (parent) {main(parent);}
 }
-function setRunning(newValue) {
-    entry().set("Running", newValue);
+function setRunning(task, newValue) {
+    task.set("Running", newValue);
 }
-function running() {
-    return entry().field("Running");
+function running(task) {
+    return task.field("Running");
 }
-function setTimerStart(newValue) {
-    entry().set("Repeat From", newValue);
+function setTimerStart(task, newValue) {
+    task.set("Repeat From", newValue);
 }
-function setRuntime(newValue) {
-    entry().set("Runtime", newValue);
+function setRuntime(task, newValue) {
+    task.set("Runtime", newValue);
 }
 function timerStart() {
     return entry().field("Repeat From");
@@ -59,13 +61,21 @@ function timerStart() {
 function elapsed() {
     return Date.now() - timerStart();
 }
-function setPrevTime(newValue) {
-    entry().set("Previous Time", newValue);
+function setPrevTime(task, newValue) {
+    task.set("Previous Time", newValue);
 }
 function name() {
     return entry().field("Name");
 }
 function runtime() {
-  return entry().field("Runtime");
+    return entry().field("Runtime");
 }
-main();
+function get_parent(task) {
+    var parents = lib().linksTo(task);
+    if (parents.length > 0) {
+        return parents[0];
+    } else {
+        return undefined;
+    }
+}
+main(entry());

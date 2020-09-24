@@ -3,9 +3,6 @@ function start(task) {
     setTimerStart(task, Date.now());
 }
 function finish(task) {
-    if (arg("priority delta") != 0) {
-        task.set("Priority", task.field("Priority") + arg("priority delta"));
-    }
     setRuntime(task, runtime() + elapsed());
     setPrevTime(task, elapsed());
 }

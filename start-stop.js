@@ -3,6 +3,9 @@ function start(task) {
     setTimerStart(task, Date.now());
 }
 function finish(task) {
+    if (arg("priority delta") != 0) {
+        task.set("Priority", task.field("Priority") + arg("priority delta"));
+    }
     setRuntime(task, runtime() + elapsed());
     setPrevTime(task, elapsed());
 }
@@ -70,12 +73,3 @@ function name() {
 function runtime() {
     return entry().field("Runtime");
 }
-function get_parent(task) {
-    var parents = lib().linksTo(task);
-    if (parents.length > 0) {
-        return parents[0];
-    } else {
-        return undefined;
-    }
-}
-main(entry());

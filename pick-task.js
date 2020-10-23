@@ -2,7 +2,7 @@ function sort_filter_entries(entries) {
     return to_array(entries).filter(x => ready(x)).sort((a, b) => vruntime(a) - vruntime(b));
 }
 function ready(task) {
-    return !(task.field("Repeat From") && task.field("Repeat From").getTime() + task.field("Repeat Interval") > Date.now() || task.field("Start At") && task.field("Start At").getTime() > Date.now() || task.field("Cool down from") && task.field("Cool down from").getTime() + task.field("Cooldown") > Date.now());
+    return !task.field("Start datetime") || task.field("Start datetime") < Date.now();
 }
 function to_array(iterable) {
     var result = [];

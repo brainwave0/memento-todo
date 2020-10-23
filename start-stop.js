@@ -4,33 +4,14 @@ function start(task) {
 }
 function finish(task) {
     setRuntime(task, runtime() + elapsed());
-    setPrevTime(task, elapsed());
     updateWaitTimes(elapsed());
     task.set("Wait time", 0);
-}
-function enjoyed() {
-    return arg("Enjoyed");
-}
-function increasePriority() {
-    setPriority(priority() + 1);
-}
-function setPriority(newValue) {
-    entry().set("Priority", newValue);
-}
-function priority() {
-    return entry().field("Priority");
-}
-function decreasePriority() {
-    setPriority(priority() - 1);
 }
 function setTimer() {
     AndroidAlarm.timer(Math.min(timeSlice() / 1000, 120), name(), false);
 }
 function timeSlice() {
     return entry().field("Wait time") / entryAndSiblings().length;
-}
-function prevTime() {
-    return entry().field("Previous Time");
 }
 function toggleRunning(task) {
     setRunning(task, !running(task));

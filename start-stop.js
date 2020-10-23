@@ -30,7 +30,11 @@ function elapsed() {
     return Date.now() - timerStart();
 }
 function entryAndSiblings() {
-    return get_parent(entry()).field("Subtasks");
+    if (parent) {
+        return parent.field("Subtasks");
+    } else {
+        return [entry()];
+    }
 }
 function updateWaitTimes(duration) {
     var entries = lib().entries();

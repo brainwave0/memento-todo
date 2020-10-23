@@ -1,10 +1,12 @@
 function start(task) {
-    // setTimer();
+    setTimer();
     setTimerStart(task, Date.now());
 }
 function finish(task) {
     setRuntime(task, runtime() + elapsed());
     setPrevTime(task, elapsed());
+    updateWaitTimes(elapsed());
+    task.set("Wait time", 0);
 }
 function enjoyed() {
     return arg("Enjoyed");
@@ -22,10 +24,10 @@ function decreasePriority() {
     setPriority(priority() - 1);
 }
 function setTimer() {
-    AndroidAlarm.timer(timeSlice() / 1000, name(), false);
+    AndroidAlarm.timer(Math.min(timeSlice() / 1000, 120), name(), false);
 }
 function timeSlice() {
-    return prevTime();
+    return entry().field("Wait time") / entryAndSiblings().length;
 }
 function prevTime() {
     return entry().field("Previous Time");
@@ -69,4 +71,14 @@ function name() {
 }
 function runtime() {
     return entry().field("Runtime");
+}
+function entryAndSiblings() {
+    return get_parent(entry()).field("Subtasks");
+}
+function updateWaitTimes(duration) {
+    var entries = lib().entries();
+    for (var i = 0; i < entries.length; i++) {
+        var entry = entries[i];
+        entry.set("Wait time", entry.field("Wait time") + duration);
+    }
 }

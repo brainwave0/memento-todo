@@ -30,6 +30,7 @@ function elapsed() {
     return Date.now() - timerStart();
 }
 function entryAndSiblings() {
+    var parent = get_parent(entry());
     if (parent) {
         return parent.field("Subtasks");
     } else {

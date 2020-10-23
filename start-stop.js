@@ -17,7 +17,7 @@ function toggleRunning(task) {
     task.set("Running", !task.field("Running"));
 }
 function main(task) {
-    if (running(task)) {
+    if (task.field("Running")) {
         finish(task);
     } else {
         start(task);

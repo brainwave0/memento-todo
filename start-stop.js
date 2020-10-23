@@ -27,7 +27,7 @@ function main(task) {
     if (parent) {main(parent);}
 }
 function elapsed() {
-    return Date.now() - timerStart();
+    return Date.now() - entry().field("Timer start");
 }
 function entryAndSiblings() {
     var parent = get_parent(entry());

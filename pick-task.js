@@ -20,7 +20,7 @@ function pick(task) {
     }
 }
 function vruntime(task) {
-    return Math.pow(8, -task.field("Priority")) * task.field("Runtime");
+    return Math.pow(1.25, -task.field("Priority")) * task.field("Runtime");
 }
 var task = sort_filter_entries(lib().entries()).find(x => x.field("Root"));
 pick(task).show();

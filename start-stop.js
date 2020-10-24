@@ -8,7 +8,7 @@ function finish(task) {
     task.set("Wait time", 0);
 }
 function setTimer() {
-    AndroidAlarm.timer(Math.max(timeSlice() / 1000, 120), entry().field("Name"), false);
+    AndroidAlarm.timer(Math.max(timeSlice() / 1000, 8 * 60), entry().field("Name"), false);
 }
 function timeSlice() {
     return entry().field("Wait time") / entryAndSiblings().length;

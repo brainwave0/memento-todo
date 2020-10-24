@@ -1,5 +1,5 @@
 function start(task) {
-    setTimer();
+    if (task == entry()) { setTimer(); }
     task.set("Timer start", Date.now());
 }
 function finish(task) {
@@ -24,7 +24,7 @@ function main(task) {
     }
     toggleRunning(task);
     var parent = get_parent(task);
-    if (parent) {main(parent);}
+    if (parent) { main(parent); }
 }
 function elapsed() {
     return Date.now() - entry().field("Timer start");

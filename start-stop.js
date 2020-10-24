@@ -4,7 +4,7 @@ function start(task) {
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());
-    updateWaitTimes(elapsed());
+    if (task == entry()) { updateWaitTimes(elapsed()); }
     task.set("Wait time", 0);
 }
 function setTimer() {

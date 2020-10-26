@@ -6,3 +6,10 @@ function get_parent(task) {
         return undefined;
     }
 }
+function to_array(iterable) {
+    var result = [];
+    for (var i = 0; i < iterable.length; i++) {
+        result.push(iterable[i]);
+    }
+    return result;
+}

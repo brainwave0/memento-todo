@@ -11,7 +11,7 @@ function setTimer() {
     AndroidAlarm.timer(Math.max(timeSlice() / 1000, 16 * 60), entry().field("Name"), false);
 }
 function timeSlice() {
-    return entry().field("Wait time") / entryAndSiblings().length;
+    return entry().field("Wait time") / leafTasks().length;
 }
 function toggleRunning(task) {
     task.set("Running", !task.field("Running"));
@@ -29,13 +29,8 @@ function main(task) {
 function elapsed() {
     return Date.now() - entry().field("Timer start");
 }
-function entryAndSiblings() {
-    var parent = get_parent(entry());
-    if (parent) {
-        return parent.field("Subtasks");
-    } else {
-        return [entry()];
-    }
+function leafTasks() {
+    return to_array(lib().entries()).filter(x => x.field("Subtasks").length == 0);
 }
 function updateWaitTimes(duration) {
     var entries = lib().entries();

@@ -1,11 +1,13 @@
 function start(task) {
     if (task == entry()) { setTimer(); }
     task.set("Timer start", Date.now());
+    create_log_entry('Started task "' + entry().field("Name") + '"');
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());
     if (task == entry()) { updateWaitTimes(elapsed()); }
     task.set("Wait time", 0);
+    create_log_entry('Finished task "' + entry().field("Name") + '"');
 }
 function setTimer() {
     AndroidAlarm.timer(Math.max(timeSlice() / 1000, 16 * 60), entry().field("Name"), false);
@@ -38,4 +40,7 @@ function updateWaitTimes(duration) {
         var entry = entries[i];
         entry.set("Wait time", entry.field("Wait time") + duration);
     }
+}
+function create_log_entry(text) {
+    libByName("Log").create({ Description: text, Datetime: Date.now() });
 }

@@ -15,5 +15,4 @@ function pick(task) {
 function vruntime(task) {
     return Math.pow(0.8, task.field("Priority")) * task.field("Runtime");
 }
-var task = sort_filter_entries(lib().entries()).find(x => x.field("Root"));
-pick(task).show();
+pick(entry()).show();

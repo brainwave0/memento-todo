@@ -58,7 +58,7 @@ function max_wait_time(task) {
             max = Math.max(max, subtasks[i].field("Wait time"));
         }
     }
-    return max;
+    return Math.max(max, task.field("Wait time"));
 }
 function is_root(task) {
     return get_parent(task) == undefined;

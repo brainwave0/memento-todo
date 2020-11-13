@@ -17,8 +17,10 @@ function finish(task) {
     task.set("Wait time", 0);
     if (running_child(task)) { finish(running_child(task)) }
     toggleRunning(task);
+    task.set("timer running", false);
 }
 function setTimer(task, duration) {
+    task.set("timer running", true);
     AndroidAlarm.timer(duration, task.field("Name"), false);
 }
 function time_slice(duration, tasks, task) {
@@ -69,7 +71,7 @@ function start_timers(task) {
     function start_timers_helper(task, duration) {
         var subtasks = task.field("Subtasks");
         if (duration > 0) {
-            setTimer(task, duration / 1000);
+            if (!task.field("timer running")) { setTimer(task, duration / 1000); }
             sleep(1);
             if (subtasks.length > 0) {
                 start_timers_helper(

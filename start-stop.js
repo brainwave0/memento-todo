@@ -1,36 +1,36 @@
 function start(task) {
-    if (task == entry()) {
-        setTimer();
-        create_log_entry('Started task "' + entry().field("Name") + '"');
-    }
+    create_log_entry('Started task "' + task.field("Name") + '"');
     task.set("Timer start", Date.now());
+    if (is_root(task)) {
+        start_timers(task);
+    } else if (!get_parent(task).field("Running")) {
+        start(get_parent(task));
+    }
+    toggleRunning(task);
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());
-    if (task == entry()) {
-        updateWaitTimes(elapsed());
-        create_log_entry('Finished task "' + entry().field("Name") + '"');
-    }
+    if (!get_parent(task)) { updateWaitTimes(elapsed()); }
+    create_log_entry('Finished task "' + entry().field("Name") + '"');
     task.set("Wait time", 0);
+    if (running_child(task)) { finish(running_child(task)) }
+    toggleRunning(task);
 }
-function setTimer() {
-    AndroidAlarm.timer(Math.max(timeSlice() / 1000, 16 * 60), entry().field("Name"), false);
+function setTimer(task, duration) {
+    AndroidAlarm.timer(duration, task.field("Name"), false);
 }
-function timeSlice() {
-    return entry().field("Wait time") / leafTasks().length;
+function time_slice(duration, tasks, task) {
+    return task.field("Priority") / tasks.map(x => x.field("Priority")).reduce((a, b) => a + b) * duration;
 }
 function toggleRunning(task) {
     task.set("Running", !task.field("Running"));
 }
-function main(task) {
-    if (task.field("Running")) {
-        finish(task);
+function main() {
+    if (entry().field("Running")) {
+        finish(entry());
     } else {
-        start(task);
+        start(entry());
     }
-    toggleRunning(task);
-    var parent = get_parent(task);
-    if (parent) { main(parent); }
 }
 function elapsed() {
     return Date.now() - entry().field("Timer start");
@@ -47,4 +47,36 @@ function updateWaitTimes(duration) {
 }
 function create_log_entry(text) {
     libByName("Log").create({ Description: text, Datetime: Date.now() });
+}
+function max_wait_time(task) {
+    var max = 0;
+    var subtasks = task.field("Subtasks");
+    for (var i = 0; i < subtasks.length; i++) {
+        if (subtasks[i].field("Subtasks")) {
+            max = Math.max(max, subtasks[i].field("Subtasks"));
+        } else {
+            max = Math.max(max, subtasks[i].field("Wait time"));
+        }
+    }
+    return max;
+}
+function is_root(task) {
+    return get_parent(task) != undefined;
+}
+function start_timers(task) {
+    function start_timers_helper(task, duration) {
+        var subtasks = task.field("Subtasks");
+        if (subtasks) {
+            start_timers_helper(
+                running_child(task),
+                time_slice(duration, to_array(subtasks), task)
+            );
+        } else {
+            setTimer(task, duration);
+        }
+    }
+    start_timers_helper(task, max_wait_time(task));
+}
+function running_child(task) {
+    return to_array(task.field("Subtasks")).find(x => x.field("Running"));
 }

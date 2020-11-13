@@ -61,7 +61,7 @@ function max_wait_time(task) {
     return max;
 }
 function is_root(task) {
-    return get_parent(task) != undefined;
+    return get_parent(task) == undefined;
 }
 function start_timers(task) {
     function start_timers_helper(task, duration) {

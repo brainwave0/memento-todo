@@ -20,7 +20,7 @@ function setTimer(task, duration) {
     AndroidAlarm.timer(duration, task.field("Name"), false);
 }
 function time_slice(duration, tasks, task) {
-    return task.field("Priority") / tasks.map(x => x.field("Priority")).reduce((a, b) => a + b) * duration;
+    return task.field("Priority") / tasks.map(x => x.field("Priority")).reduce((a, b) => a + b, 0) * duration;
 }
 function toggleRunning(task) {
     task.set("Running", !task.field("Running"));

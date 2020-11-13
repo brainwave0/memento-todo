@@ -1,16 +1,18 @@
 function start(task) {
-    toggleRunning(task);
-    create_log_entry('Started task "' + task.field("Name") + '"');
-    task.set("Timer start", Date.now());
+    if (!task.field("Running")) {
+        toggleRunning(task);
+        create_log_entry('Started task "' + task.field("Name") + '"');
+        task.set("Timer start", Date.now());
+    }
     if (is_root(task)) {
         start_timers(task);
-    } else if (!get_parent(task).field("Running")) {
+    } else {
         start(get_parent(task));
     }
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());
-    if (!get_parent(task)) { updateWaitTimes(elapsed()); }
+    if (is_root(task)) { updateWaitTimes(elapsed()); }
     create_log_entry('Finished task "' + entry().field("Name") + '"');
     task.set("Wait time", 0);
     if (running_child(task)) { finish(running_child(task)) }

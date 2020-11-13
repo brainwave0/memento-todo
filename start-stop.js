@@ -66,13 +66,14 @@ function is_root(task) {
 function start_timers(task) {
     function start_timers_helper(task, duration) {
         var subtasks = task.field("Subtasks");
-        if (subtasks.length > 0) {
-            start_timers_helper(
-                running_child(task),
-                time_slice(duration, to_array(subtasks), task)
-            );
-        } else {
+        if (duration > 0) {
             setTimer(task, duration);
+            if (subtasks.length > 0) {
+                start_timers_helper(
+                    running_child(task),
+                    time_slice(duration, to_array(subtasks), task)
+                );
+            }
         }
     }
     start_timers_helper(task, max_wait_time(task));

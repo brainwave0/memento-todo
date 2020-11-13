@@ -53,7 +53,7 @@ function max_wait_time(task) {
     var subtasks = task.field("Subtasks");
     for (var i = 0; i < subtasks.length; i++) {
         if (subtasks[i].field("Subtasks").length > 0) {
-            max = Math.max(max, subtasks[i].field("Subtasks"));
+            max = Math.max(max, max_wait_time(subtasks[i]));
         } else {
             max = Math.max(max, subtasks[i].field("Wait time"));
         }

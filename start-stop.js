@@ -1,4 +1,5 @@
 function start(task) {
+    toggleRunning(task);
     create_log_entry('Started task "' + task.field("Name") + '"');
     task.set("Timer start", Date.now());
     if (is_root(task)) {
@@ -6,7 +7,6 @@ function start(task) {
     } else if (!get_parent(task).field("Running")) {
         start(get_parent(task));
     }
-    toggleRunning(task);
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());

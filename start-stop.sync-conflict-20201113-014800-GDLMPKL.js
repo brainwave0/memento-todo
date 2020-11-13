@@ -1,5 +1,4 @@
 function start(task) {
-    toggleRunning(task);
     create_log_entry('Started task "' + task.field("Name") + '"');
     task.set("Timer start", Date.now());
     if (is_root(task)) {
@@ -7,6 +6,7 @@ function start(task) {
     } else if (!get_parent(task).field("Running")) {
         start(get_parent(task));
     }
+    toggleRunning(task);
 }
 function finish(task) {
     task.set("Runtime", task.field("Runtime") + elapsed());
@@ -52,8 +52,8 @@ function max_wait_time(task) {
     var max = 0;
     var subtasks = task.field("Subtasks");
     for (var i = 0; i < subtasks.length; i++) {
-        if (subtasks[i].field("Subtasks").length > 0) {
-            max = Math.max(max, max_wait_time(subtasks[i]));
+        if (subtasks[i].field("Subtasks")) {
+            max = Math.max(max, subtasks[i].field("Subtasks"));
         } else {
             max = Math.max(max, subtasks[i].field("Wait time"));
         }
@@ -66,14 +66,13 @@ function is_root(task) {
 function start_timers(task) {
     function start_timers_helper(task, duration) {
         var subtasks = task.field("Subtasks");
-        if (duration > 0) {
-            setTimer(task, duration / 1000);
-            if (subtasks.length > 0) {
-                start_timers_helper(
-                    running_child(task),
-                    time_slice(duration, to_array(subtasks), running_child(task))
-                );
-            }
+        if (subtasks) {
+            start_timers_helper(
+                running_child(task),
+                time_slice(duration, to_array(subtasks), task)
+            );
+        } else {
+            setTimer(task, duration);
         }
     }
     start_timers_helper(task, max_wait_time(task));

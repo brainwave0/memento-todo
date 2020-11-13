@@ -42,7 +42,9 @@ function updateWaitTimes(duration) {
     var entries = lib().entries();
     for (var i = 0; i < entries.length; i++) {
         var entry = entries[i];
-        entry.set("Wait time", entry.field("Wait time") + duration);
+        if (ready(entry)) {
+            entry.set("Wait time", entry.field("Wait time") + duration);
+        }
     }
 }
 function create_log_entry(text) {

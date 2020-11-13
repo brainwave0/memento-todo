@@ -13,3 +13,6 @@ function to_array(iterable) {
     }
     return result;
 }
+function ready(task) {
+    return !task.field("Start datetime") || task.field("Start datetime") < Date.now();
+}

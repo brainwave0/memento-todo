@@ -71,8 +71,10 @@ function start_timers(task) {
     function start_timers_helper(task, duration) {
         var subtasks = task.field("Subtasks");
         if (duration > 0) {
-            if (!task.field("timer running")) { setTimer(task, duration / 1000); }
-            sleep(1);
+            if (!task.field("timer running")) {
+                setTimer(task, duration / 1000);
+                sleep(1);
+            }
             if (subtasks.length > 0) {
                 start_timers_helper(
                     running_child(task),

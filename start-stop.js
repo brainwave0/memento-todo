@@ -13,7 +13,7 @@ function setTimer() {
     AndroidAlarm.timer(Math.max(timeSlice() / 1000, 16 * 60), entry().field("Name"), false);
 }
 function timeSlice() {
-    return entry().field("Wait time") / lib().entries().length;
+    return entry().field("Wait time") / to_array(lib().entries()).filter(x => ready(x)).length;
 }
 function toggleRunning(task) {
     task.set("Running", !task.field("Running"));

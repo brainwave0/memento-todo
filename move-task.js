@@ -1,16 +1,13 @@
 function move_task(index) {
   var tasks = active_tasks();
 
-  var new_vruntime = 0;
+  var new_vruntime;
   if (index <= 0) {
-    new_vruntime += vruntime(tasks[0]);
+    new_vruntime = vruntime(tasks[0]);
+  } else if (index >= tasks.length) {
+    new_vruntime = vruntime(tasks[index]) + 1;
   } else {
-    new_vruntime += vruntime(tasks[index - 1]);
-  }
-  if (index >= tasks.length) {
-    new_vruntime += vruntime(tasks[tasks.length - 1]);
-  } else {
-    new_vruntime += vruntime(tasks[index + 1]);
+    new_vruntime = vruntime(tasks[index - 1]) + vruntime(tasks[index + 1]);
   }
   new_vruntime /= 2;
 

@@ -11,7 +11,9 @@ function ready(task) {
   );
 }
 function active_tasks() {
-  return to_array(lib().entries()).filter((x) => x.field("Done") == 0);
+  return to_array(lib().entries())
+    .filter((x) => x.field("Done") == 0)
+    .sort((x) => vruntime(x));
 }
 function vruntime(task) {
   return Math.pow(0.8, task.field("Priority")) * task.field("Runtime");

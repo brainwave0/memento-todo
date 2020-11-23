@@ -3,12 +3,12 @@ function move_task(index) {
 
   var new_vruntime = 0;
   if (index > 0) {
-    new_vruntime = vruntime(tasks[index - 1]);
+    new_vruntime = vruntime(tasks[index + 1]);
   } else {
     new_vruntime = 0;
   }
   if (index < tasks.length - 1) {
-    new_vruntime += vruntime(tasks[index + 1]);
+    new_vruntime += vruntime(tasks[index - 1]);
   } else {
     new_vruntime += vruntime(tasks[index]);
   }

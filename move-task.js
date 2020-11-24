@@ -13,6 +13,6 @@ function move_task(index) {
 
   entry().set(
     "Priority",
-    Math.log(0.8, new_vruntime / entry().field("Runtime"))
+    Math.log(new_vruntime / entry().field("Runtime")) / Math.log(0.8)
   );
 }

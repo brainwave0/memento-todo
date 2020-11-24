@@ -7,9 +7,9 @@ function move_task(index) {
     new_vruntime = vruntime(tasks[0]) - 1;
   } else if (index >= tasks.length) {
     new_vruntime = vruntime(tasks[index]) + 1;
-  } else if (entry_index < index) {
+  } else if (index > entry_index) {
     new_vruntime = (vruntime(tasks[index - 1]) + vruntime(tasks[index])) / 2;
-  } else if (entry_index > index) {
+  } else if (index < entry_index) {
     new_vruntime = (vruntime(tasks[index]) + vruntime(tasks[index + 1])) / 2;
   }
 

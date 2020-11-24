@@ -10,7 +10,7 @@ function finish(task) {
     task.set("Wait time", 0);
 }
 function setTimer() {
-    AndroidAlarm.timer(Math.max(timeSlice() / 1000, 16 * 60), entry().field("Name"), false);
+    AndroidAlarm.timer(Math.max(timeSlice() / 1000, timer_min), entry().field("Name"), false);
 }
 function timeSlice() {
     return entry().field("Wait time") / to_array(lib().entries()).filter(x => ready(x)).length;

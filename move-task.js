@@ -2,11 +2,14 @@ function move_task(index) {
   var tasks = active_tasks();
 
   var new_vruntime;
+  var entry_index = tasks.findIndex((x) => x.id == entry().id);
   if (index <= 0) {
     new_vruntime = vruntime(tasks[0]) - 1;
   } else if (index >= tasks.length) {
     new_vruntime = vruntime(tasks[index]) + 1;
-  } else {
+  } else if (entry_index < index) {
+    new_vruntime = (vruntime(tasks[index - 1]) + vruntime(tasks[index])) / 2;
+  } else if (entry_index > index) {
     new_vruntime = (vruntime(tasks[index]) + vruntime(tasks[index + 1])) / 2;
   }
 

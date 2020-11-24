@@ -7,8 +7,7 @@ function move_task(index) {
   } else if (index >= tasks.length) {
     new_vruntime = vruntime(tasks[index]) + 1;
   } else {
-    new_vruntime =
-      (vruntime(tasks[index - 1]) + vruntime(tasks[index + 1])) / 2;
+    new_vruntime = (vruntime(tasks[index - 1]) + vruntime(tasks[index])) / 2;
   }
 
   entry().set(

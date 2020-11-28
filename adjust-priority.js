@@ -13,12 +13,12 @@ function adjust_priorities(amount) {
   // so that there is a balance of positive and negative priorities.
   if (avg_priority >= 0) {
     selected_tasks.forEach((x) =>
-      x.set("Priority", x.field("Priority") + amount)
+      x.set("Priority", x.field("Priority") - amount)
     );
   } else {
     all_tasks.forEach((x) => {
       if (!includes(selected_tasks, x)) {
-        x.set("Priority", x.field("Priority") - amount);
+        x.set("Priority", x.field("Priority") + amount);
       }
     });
   }

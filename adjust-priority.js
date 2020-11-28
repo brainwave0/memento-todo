@@ -14,9 +14,9 @@ function adjust_priorities(amount) {
     adjust_other(-amount);
   } else if (avg_priority < 0 && amount > 0) {
     adjust_selected(amount);
-  } else if (avg_priority > 0 && amount < 0) {
+  } else if (avg_priority >= 0 && amount < 0) {
     adjust_selected(amount);
-  } else if (avg_priority > 0 && amount > 0) {
+  } else if (avg_priority >= 0 && amount > 0) {
     adjust_other(-amount);
   }
 }

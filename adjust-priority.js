@@ -27,7 +27,7 @@ function adjust_other(amount) {
 }
 function adjust_selected(amount) {
   get_all_tasks().forEach((x) => {
-    if (!includes(to_array(selectedEntries()), x)) {
+    if (!includes(x, to_array(selectedEntries()))) {
       x.set("Priority", x.field("Priority") - amount);
     }
   });

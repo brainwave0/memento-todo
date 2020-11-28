@@ -20,12 +20,12 @@ function adjust_priorities(amount) {
     adjust_other(-amount);
   }
 }
-function adjust_other(amount) {
+function adjust_selected(amount) {
   to_array(selectedEntries()).forEach((x) =>
     x.set("Priority", x.field("Priority") + amount)
   );
 }
-function adjust_selected(amount) {
+function adjust_other(amount) {
   get_all_tasks().forEach((x) => {
     if (!includes(x, to_array(selectedEntries()))) {
       x.set("Priority", x.field("Priority") - amount);

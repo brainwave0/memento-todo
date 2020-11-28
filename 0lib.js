@@ -18,3 +18,6 @@ function active_tasks() {
 function vruntime(task) {
   return Math.pow(0.8, task.field("Priority")) * task.field("Runtime");
 }
+function get_all_tasks() {
+  return to_array(lib().entries());
+}

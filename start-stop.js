@@ -41,6 +41,3 @@ function updateWaitTimes(duration) {
 function create_log_entry(text) {
     libByName("Log").create({ Description: text, Datetime: Date.now() });
 }
-function get_all_tasks() {
-    return to_array(lib().entries());
-}

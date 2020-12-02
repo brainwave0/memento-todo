@@ -4,7 +4,7 @@
 function adjust_priority(entry: Entry, amount: number): void {
   var all_tasks = get_all_tasks();
   var avg_priority =
-    sum(all_tasks.map((x) => x.field("Priority"))) /
+    sum(all_tasks.map((x) => x.field("Importance"))) /
     all_tasks.length;
 
   // Increment the priorities of the selected tasks by the given amount,
@@ -13,9 +13,9 @@ function adjust_priority(entry: Entry, amount: number): void {
   if (avg_priority < 0 && amount < 0 || avg_priority >= 0 && amount > 0) {
     adjust_other(entry, -amount);
   } else if (avg_priority < 0 && amount > 0 || avg_priority >= 0 && amount < 0) {
-    entry.set("Priority", entry.field("Priority") + amount);
+    entry.set("Importance", entry.field("Importance") + amount);
   }
 }
 function adjust_other(entry: Entry, amount: number): void {
-  get_all_tasks().filter(x => x.id != entry.id).forEach(x => x.set("Priority", x.field("Priority") + amount));
+  get_all_tasks().filter(x => x.id != entry.id).forEach(x => x.set("Importance", x.field("Importance") + amount));
 }

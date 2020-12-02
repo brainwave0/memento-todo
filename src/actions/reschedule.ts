@@ -6,3 +6,4 @@ if (arg("Specific datetime")) {
 } else if (arg("Specific duration")) {
     entry().set("Start datetime", Date.now() + arg("Specific duration"));
 }
+entry().set("Runtime", 0);

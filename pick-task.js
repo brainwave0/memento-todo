@@ -137,7 +137,7 @@ function instant_runoff(lists) {
 }
 function counts(xs) {
   var e_1, _a;
-  var count_map;
+  var count_map = [];
   var _loop_1 = function (x) {
     if (count_map.map(head).includes(x)) {
       count_map.find(function (y) {

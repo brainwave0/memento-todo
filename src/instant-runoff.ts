@@ -4,7 +4,7 @@ function instant_runoff(lists: any[][]): any {
     let first_choices = lists.map(head);
     let candidate_votes = counts(first_choices);
     let total_votes = sum(candidate_votes.map(second));
-    let winner = candidate_votes.filter(x => x[1] > total_votes / 2)[0];
+    let winner = candidate_votes.filter(x => x[1] > total_votes / 2)[0][0];
     if (winner) {
         return winner;
     } else {

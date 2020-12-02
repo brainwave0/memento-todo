@@ -1,3 +1,4 @@
+/// <reference path="../memento-database"/>
 if (arg("Specific datetime")) {
     entry().set("Start datetime", arg("Specific datetime"));
 } else if (arg("Repeat interval")) {

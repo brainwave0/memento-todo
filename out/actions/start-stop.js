@@ -8,23 +8,13 @@ function finish(task) {
     updateWaitTimes(elapsed());
     create_log_entry('Finished task "' + entry().field("Name") + '"');
     task.set("Wait time", 0);
+    task.set("Expensiveness", task.field("Expensiveness") + elapsed() / arg("Rating"));
 }
 function setTimer() {
-    AndroidAlarm.timer(Math.max(timeSlice() / 1000, timer_min), entry().field("Name"), false);
-}
-function timeSlice() {
-    return entry().field("Wait time") / to_array(lib().entries()).filter(x => ready(x)).length;
+    AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
 }
 function toggleRunning(task) {
     task.set("Running", !task.field("Running"));
-}
-function main(task) {
-    if (task.field("Running")) {
-        finish(task);
-    } else {
-        start(task);
-    }
-    toggleRunning(task);
 }
 function elapsed() {
     return Date.now() - entry().field("Timer start");
@@ -41,3 +31,10 @@ function updateWaitTimes(duration) {
 function create_log_entry(text) {
     libByName("Log").create({ Description: text, Datetime: Date.now() });
 }
+if (entry().field("Running")) {
+    finish(entry());
+}
+else {
+    start(entry());
+}
+toggleRunning(entry());

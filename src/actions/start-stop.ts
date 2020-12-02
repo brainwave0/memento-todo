@@ -1,7 +1,8 @@
-/// <reference path="../memento-database"/>
 /// <reference path="../android-alarm"/>
+/// <reference path="../memento-database"/>
 /// <reference path="../settings"/>
 /// <reference path="../util"/>
+
 function start(task: Entry): void {
     setTimer();
     create_log_entry('Started task "' + entry().field("Name") + '"');

@@ -1,4 +1,5 @@
 /// <reference path="./memento-database"/>
+
 enum SortDir {
     Ascending,
     Descending

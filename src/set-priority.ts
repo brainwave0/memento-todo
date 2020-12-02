@@ -1,6 +1,5 @@
 /// <reference path="./util"/>
 /// <reference path="./memento-database"/>
-/// <reference path="./util"/>
 function adjust_priority(entry: Entry, amount: number): void {
   var all_tasks = get_all_tasks();
   var avg_priority =

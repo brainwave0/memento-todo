@@ -1,4 +1,5 @@
 /// <reference path="./util"/>
+
 function instant_runoff(lists: any[][]): any {
     let first_choices = lists.map(head);
     let candidate_votes = counts(first_choices);

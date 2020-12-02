@@ -1,4 +1,4 @@
-/// <reference path="./memento-database">
+/// <reference path="./memento-database"/>
 function to_array(iterable): any[] {
   var result = [];
   for (var i = 0; i < iterable.length; i++) {

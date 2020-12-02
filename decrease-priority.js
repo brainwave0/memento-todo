@@ -23,7 +23,6 @@ function sum(nums) {
     return a + b;
   }, 0);
 }
-
 function adjust_priority(entry, amount) {
   var all_tasks = get_all_tasks();
   var avg_priority =

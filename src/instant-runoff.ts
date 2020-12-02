@@ -17,13 +17,13 @@ function instant_runoff(lists: any[][]): any {
         }
     }
 }
-function counts(xs: any[]): [any, number] {
-    let count_map: [any, number];
+function counts(xs: any[]): [any, number][] {
+    let count_map: [any, number][];
     for (let x of xs) {
-        if (count_map.hasOwnProperty(x)) {
-            count_map[x] += 1;
+        if (count_map.map(head).includes(x)) {
+            count_map.find(y => y[0] == x)[1] += 1;
         } else {
-            count_map[x] = 1;
+            count_map.push([x, 1]);
         }
     }
     return count_map;

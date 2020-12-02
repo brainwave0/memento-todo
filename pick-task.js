@@ -138,6 +138,15 @@ function instant_runoff(lists) {
 function counts(xs) {
   var e_1, _a;
   var count_map;
+  var _loop_1 = function (x) {
+    if (count_map.map(head).includes(x)) {
+      count_map.find(function (y) {
+        return y[0] == x;
+      })[1] += 1;
+    } else {
+      count_map.push([x, 1]);
+    }
+  };
   try {
     for (
       var xs_1 = __values(xs), xs_1_1 = xs_1.next();
@@ -145,11 +154,7 @@ function counts(xs) {
       xs_1_1 = xs_1.next()
     ) {
       var x = xs_1_1.value;
-      if (count_map.hasOwnProperty(x)) {
-        count_map[x] += 1;
-      } else {
-        count_map[x] = 1;
-      }
+      _loop_1(x);
     }
   } catch (e_1_1) {
     e_1 = { error: e_1_1 };

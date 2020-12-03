@@ -32,7 +32,7 @@ function slack_time(e: Entry) {
   let expected_runtime = e.field("Expected runtime") || 0;
   return deadline - Date.now() - expected_runtime;
 }
-var sort_orders = [
+var sort_categories = [
   ascending_wait_time,
   ascending_slack_time,
   ascending_expensiveness,

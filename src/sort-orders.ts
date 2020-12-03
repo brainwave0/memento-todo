@@ -4,17 +4,30 @@ enum SortDir {
   Ascending,
   Descending,
 }
-function ascending_wait_time(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Wait time"), SortDir.Ascending);
+function latest_attempt(entries: Entry[]): Entry[] {
+  return sort(entries, (e) => e.field("Latest attempt"), SortDir.Ascending);
 }
-function ascending_slack_time(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => slack_time(e), SortDir.Ascending);
+function start_datetime(entries: Entry[]): Entry[] {
+  return sort(entries, (e) => e.field("Start datetime"), SortDir.Ascending);
 }
-function ascending_expensiveness(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Expensiveness"), SortDir.Ascending);
+function deadline(entries: Entry[]): Entry[] {
+  return sort(entries, (e) => e.field("Deadline"), SortDir.Ascending);
 }
-function descending_importance(entries: Entry[]): Entry[] {
+function value(entries: Entry[]): Entry[] {
+  return sort(entries, (e) => e.field("Value"), SortDir.Descending);
+}
+function importance(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Importance"), SortDir.Descending);
+}
+function remaining_runtime(entries: Entry[]): Entry[] {
+  return sort(
+    entries,
+    (e) => e.field("Expected runtime") - e.field("Runtime"),
+    SortDir.Ascending
+  );
+}
+function runtime(entries: Entry[]): Entry[] {
+  return sort(entries, (e) => e.field("Runtime"), SortDir.Ascending);
 }
 function sort(
   elems: any[],
@@ -27,14 +40,12 @@ function sort(
     return elems.sort((a, b) => field_selector(b) - field_selector(a));
   }
 }
-function slack_time(e: Entry) {
-  let deadline = e.field("Deadline") || Date.now();
-  let expected_runtime = e.field("Expected runtime") || 0;
-  return deadline - Date.now() - expected_runtime;
-}
-var sort_categories = [
-  ascending_wait_time,
-  ascending_slack_time,
-  ascending_expensiveness,
-  descending_importance,
+var sort_orders = [
+  latest_attempt,
+  start_datetime,
+  deadline,
+  value,
+  importance,
+  remaining_runtime,
+  runtime,
 ];

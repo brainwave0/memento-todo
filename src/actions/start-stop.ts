@@ -9,11 +9,11 @@ function start(task: Entry): void {
     task.set("Timer start", Date.now());
 }
 function finish(task: Entry): void {
-    task.set("Runtime", task.field("Runtime") + elapsed());
-    updateWaitTimes(elapsed());
     create_log_entry('Finished task "' + entry().field("Name") + '"');
+    task.set("Runtime", task.field("Runtime") + elapsed());
     task.set("Wait time", 0);
-    task.set("Expensiveness", task.field("Expensiveness") + elapsed() / arg("Rating"));
+    task.set("Value", task.field("Value") + arg("Rating"));
+    task.set("Latest attempt", Date.now());
 }
 function setTimer() {
     AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
@@ -23,15 +23,6 @@ function toggleRunning(task) {
 }
 function elapsed() {
     return Date.now() - entry().field("Timer start");
-}
-function updateWaitTimes(duration) {
-    var entries = lib().entries();
-    for (var i = 0; i < entries.length; i++) {
-        var entry = entries[i];
-        if (ready(entry)) {
-            entry.set("Wait time", entry.field("Wait time") + duration);
-        }
-    }
 }
 function create_log_entry(text: string): void {
     libByName("Log").create({ Description: text, Datetime: Date.now() });

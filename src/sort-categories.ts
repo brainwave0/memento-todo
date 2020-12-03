@@ -5,7 +5,7 @@ enum SortDir {
   Descending,
 }
 function ascending_wait_time(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Wait time"), SortDir.Ascending);
+  return sort(entries, (e) => e.field("Wait time"), SortDir.Descending);
 }
 function ascending_slack_time(entries: Entry[]): Entry[] {
   return sort(entries, (e) => slack_time(e), SortDir.Ascending);

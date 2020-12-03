@@ -12,7 +12,7 @@ function instant_runoff(lists: any[][]): any {
   } else {
     let last_place_candidate = shuffleArray(candidate_votes).sort(
       (a, b) => a[1] - b[1]
-    )[0];
+    )[0][0];
     if (first_choices.length > 2) {
       return instant_runoff(
         lists.map((xs) => xs.filter((x) => x != last_place_candidate))

@@ -5,25 +5,13 @@ enum SortDir {
   Descending,
 }
 function ascending_wait_time(entries: Entry[]): Entry[] {
-  return sort(
-    entries.filter((e) => e.field("Wait time")),
-    (e) => e.field("Wait time"),
-    SortDir.Ascending
-  );
+  return sort(entries, (e) => e.field("Wait time"), SortDir.Ascending);
 }
 function ascending_slack_time(entries: Entry[]): Entry[] {
-  return sort(
-    entries.filter((e) => e.field("Deadline") && e.field("Expected runtime")),
-    (e) => slack_time(e),
-    SortDir.Ascending
-  );
+  return sort(entries, (e) => slack_time(e), SortDir.Ascending);
 }
 function ascending_expensiveness(entries: Entry[]): Entry[] {
-  return sort(
-    entries.filter((e) => e.field("Expensiveness")),
-    (e) => e.field("Expensiveness"),
-    SortDir.Ascending
-  );
+  return sort(entries, (e) => e.field("Expensiveness"), SortDir.Ascending);
 }
 function descending_importance(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Importance"), SortDir.Descending);

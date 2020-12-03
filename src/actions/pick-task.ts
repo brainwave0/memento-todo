@@ -3,8 +3,8 @@
 /// <reference path="../sort-categories"/>
 /// <reference path="../instant-runoff"/>
 let lists: Entry[][] = [];
-let all_tasks = get_all_tasks();
+let tasks = active_tasks();
 for (let fn of sort_categories) {
-    lists.push(fn(all_tasks));
+    lists.push(fn(tasks));
 }
 instant_runoff(lists).show();

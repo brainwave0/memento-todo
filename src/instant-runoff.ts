@@ -14,14 +14,11 @@ function instant_runoff(lists: any[][]): any {
       (a, b) => a[1] - b[1]
     )[0][0];
     if (first_choices.length > 2) {
-      let lists_minus_lpc = lists.map((xs) =>
-        xs.filter((x) => x != last_place_candidate)
+      return instant_runoff(
+        lists
+          .map((xs) => xs.filter((x) => x != last_place_candidate))
+          .filter((x) => x.length > 0)
       );
-      if (lists_minus_lpc) {
-        return instant_runoff(lists_minus_lpc);
-      } else {
-        return last_place_candidate;
-      }
     } else if (Math.random() > 0.5) {
       return first_choices[0];
     } else {

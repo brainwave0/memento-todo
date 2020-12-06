@@ -9,7 +9,7 @@ function instant_runoff(lists: any[][]): any {
     head(candidate_votes.filter((x) => x[1] > total_votes / 2))
   );
   if (winner) {
-    message("votes: " + String(candidate_votes.filter((x) => x[1] > total_votes / 2)[1]));
+    message("votes: " + String(candidate_votes.filter((x) => x[1] > total_votes / 2)[0][1]));
     message("total votes: " + String(total_votes));
     return winner;
   } else {

@@ -29,8 +29,9 @@ function instant_runoff(lists: any[][]): any {
 function counts(xs: any[]): [any, number][] {
   let count_map: [any, number][] = [];
   for (let x of xs) {
-    if (count_map.map(head).indexOf(x) > -1) {
-      count_map.find((y) => y[0] == x)[1] += 1;
+    let index = count_map.map(head).indexOf(x);
+    if (index > -1) {
+      count_map[index][1] += 1;
     } else {
       count_map.push([x, 1]);
     }

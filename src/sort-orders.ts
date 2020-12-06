@@ -7,9 +7,6 @@ enum SortDir {
 function latest_attempt(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Latest attempt"), SortDir.Ascending);
 }
-function start_datetime(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Start datetime"), SortDir.Ascending);
-}
 function deadline(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Deadline"), SortDir.Ascending);
 }
@@ -42,7 +39,6 @@ function sort(
 }
 var sort_orders = [
   latest_attempt,
-  start_datetime,
   deadline,
   value,
   importance,

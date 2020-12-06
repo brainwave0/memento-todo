@@ -1,4 +1,5 @@
 /// <reference path="./util"/>
+/// <reference path="./memento-database"/>
 
 function instant_runoff(lists: any[][]): any {
   let first_choices = lists.map(head);
@@ -8,6 +9,7 @@ function instant_runoff(lists: any[][]): any {
     head(candidate_votes.filter((x) => x[1] > total_votes / 2))
   );
   if (winner) {
+    message("winrar!");
     return winner;
   } else {
     let last_place_candidate = shuffleArray(candidate_votes).sort(

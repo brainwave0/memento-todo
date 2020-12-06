@@ -13,16 +13,16 @@ function instant_runoff(lists: any[][]): any {
     let last_place_candidate = shuffleArray(candidate_votes).sort(
       (a, b) => a[1] - b[1]
     )[0][0];
-    if (first_choices.length > 2) {
+    if (first_choices.length > 0) {
       return instant_runoff(
         lists
           .map((xs) => xs.filter((x) => x != last_place_candidate))
           .filter((x) => x.length > 0)
       );
-    } else if (Math.random() > 0.5) {
+    } else if (first_choices.length > 0) {
       return first_choices[0];
     } else {
-      return first_choices[1];
+      throw "failed to pick";
     }
   }
 }

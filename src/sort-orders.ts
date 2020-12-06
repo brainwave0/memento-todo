@@ -19,7 +19,7 @@ function importance(entries: Entry[]): Entry[] {
 function remaining_runtime(entries: Entry[]): Entry[] {
   return sort(
     entries,
-    (e) => Math.max(e.field("Runtime"), e.field("Expected runtime") - e.field("Runtime")),
+    (e) => Math.max(e.field("Expected runtime"), e.field("Runtime")) - e.field("Runtime"),
     SortDir.Ascending
   );
 }

@@ -11,7 +11,8 @@ function start(task: Entry): void {
 function finish(task: Entry): void {
     create_log_entry('Finished task "' + entry().field("Name") + '"');
     task.set("Runtime", task.field("Runtime") + elapsed());
-    task.set("Value", task.field("Value") + arg("Rating") / elapsed() * 100000);
+    task.set("Total runtime", task.field("Total runtime") + elapsed());
+    task.set("Value", task.field("Value") + arg("Rating"));
     task.set("Latest attempt", Date.now());
 }
 function setTimer() {

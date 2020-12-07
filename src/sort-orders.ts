@@ -11,7 +11,7 @@ function deadline(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Deadline"), SortDir.Ascending);
 }
 function value(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Value"), SortDir.Descending);
+  return sort(entries, (e) => e.field("Value") / e.field("Total runtime"), SortDir.Descending);
 }
 function importance(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Importance"), SortDir.Descending);

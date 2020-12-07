@@ -9,13 +9,12 @@ function instant_runoff(lists: any[][]): any {
     head(candidate_votes.filter((x) => x[1] > total_votes / 2))
   );
   if (winner) {
-    message("votes: " + String(candidate_votes.filter((x) => x[1] > total_votes / 2)[0][1]));
-    message("total votes: " + String(total_votes));
     return winner;
   } else {
     let last_place_candidate = shuffleArray(candidate_votes).sort(
       (a, b) => a[1] - b[1]
     )[0][0];
+    message(last_place_candidate);
     if (first_choices.length > 1) {
       return instant_runoff(
         lists

@@ -11,7 +11,11 @@ function deadline(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Deadline"), SortDir.Ascending);
 }
 function value(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Value") / e.field("Total runtime"), SortDir.Descending);
+  return sort(
+    entries,
+    (e) => e.field("Value") / e.field("Total runtime"),
+    SortDir.Descending
+  );
 }
 function importance(entries: Entry[]): Entry[] {
   return sort(entries, (e) => e.field("Importance"), SortDir.Descending);
@@ -19,7 +23,10 @@ function importance(entries: Entry[]): Entry[] {
 function remaining_runtime(entries: Entry[]): Entry[] {
   return sort(
     entries,
-    (e) => Math.max(e.field("Expected runtime"), e.field("Runtime")) - e.field("Runtime"),
+    (e) =>
+      e.field("Expected runtime")
+        ? e.field("Expected runtime") - e.field("Runtime")
+        : e.field("Runtime"),
     SortDir.Ascending
   );
 }

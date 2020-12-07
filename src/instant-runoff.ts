@@ -3,7 +3,7 @@
 
 function instant_runoff(lists: any[][]): any {
   let first_choices = lists.map(head);
-  message(first_choices);
+  message(first_choices.map((x) => x.field("Name")));
   let candidate_votes = counts(first_choices);
   let total_votes = sum(candidate_votes.map(second));
   let winner = head(

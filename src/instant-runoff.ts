@@ -38,6 +38,7 @@ function counts(xs: any[]): [any, number][] {
       count_map.push([x, 1]);
     }
   }
+  message(count_map);
   return count_map;
 }
 function head(xs: any[]): any {

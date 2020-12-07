@@ -3,6 +3,7 @@
 
 function instant_runoff(lists: any[][]): any {
   let first_choices = lists.map(head);
+  message(first_choices);
   let candidate_votes = counts(first_choices);
   let total_votes = sum(candidate_votes.map(second));
   let winner = head(
@@ -14,7 +15,6 @@ function instant_runoff(lists: any[][]): any {
     let last_place_candidate = shuffleArray(candidate_votes).sort(
       (a, b) => a[1] - b[1]
     )[0][0];
-    message(last_place_candidate);
     if (first_choices.length > 1) {
       return instant_runoff(
         lists
@@ -38,7 +38,6 @@ function counts(xs: any[]): [any, number][] {
       count_map.push([x, 1]);
     }
   }
-  message(count_map);
   return count_map;
 }
 function head(xs: any[]): any {

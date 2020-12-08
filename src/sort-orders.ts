@@ -1,37 +1,7 @@
 /// <reference path="./memento-database"/>
-
 enum SortDir {
   Ascending,
   Descending,
-}
-function latest_attempt(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Latest attempt"), SortDir.Ascending);
-}
-function deadline(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Deadline"), SortDir.Ascending);
-}
-function value(entries: Entry[]): Entry[] {
-  return sort(
-    entries,
-    (e) => e.field("Value") / e.field("Total runtime"),
-    SortDir.Descending
-  );
-}
-function importance(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Importance"), SortDir.Descending);
-}
-function remaining_runtime(entries: Entry[]): Entry[] {
-  return sort(
-    entries,
-    (e) =>
-      e.field("Expected runtime")
-        ? e.field("Expected runtime") - e.field("Runtime")
-        : e.field("Runtime"),
-    SortDir.Ascending
-  );
-}
-function runtime(entries: Entry[]): Entry[] {
-  return sort(entries, (e) => e.field("Runtime"), SortDir.Ascending);
 }
 function sort(
   elems: any[],
@@ -45,10 +15,41 @@ function sort(
   }
 }
 var sort_orders = [
-  latest_attempt,
-  deadline,
-  value,
-  importance,
-  remaining_runtime,
-  runtime,
+  function latest_attempt(entries: Entry[]): Entry[] {
+    return sort(
+      entries,
+      (e) => e.field("Latest attempt") || new Date(0),
+      SortDir.Ascending
+    );
+  },
+  function deadline(entries: Entry[]): Entry[] {
+    return sort(
+      entries,
+      (e) => e.field("Deadline") || new Date(0),
+      SortDir.Ascending
+    );
+  },
+  function value(entries: Entry[]): Entry[] {
+    return sort(
+      entries,
+      (e) => e.field("Value") / e.field("Total runtime") || 1,
+      SortDir.Descending
+    );
+  },
+  function importance(entries: Entry[]): Entry[] {
+    return sort(entries, (e) => e.field("Importance"), SortDir.Descending);
+  },
+  function remaining_runtime(entries: Entry[]): Entry[] {
+    return sort(
+      entries,
+      (e) =>
+        e.field("Expected runtime")
+          ? e.field("Expected runtime") - e.field("Runtime")
+          : e.field("Runtime"),
+      SortDir.Ascending
+    );
+  },
+  function runtime(entries: Entry[]): Entry[] {
+    return sort(entries, (e) => e.field("Runtime"), SortDir.Ascending);
+  },
 ];

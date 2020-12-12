@@ -79,7 +79,9 @@ assert(
 
 // pick task
 init_sim();
-assert(pick_task().field("Name") == "Shave ", "Picked the wrong task.");
+let task = pick_task()
+assert(task.field("Name") == "Shave ", "Picked the wrong task.");
+assert(task.field("Running"), "Task didn't automatically start.")
 
 // reschedule with specific datetime
 init_sim();
@@ -152,7 +154,7 @@ assert(!entry().field("Running"), "Failed to stop task.");
 // start
 init_sim();
 current_entry = lib().entries()[0];
-start();
+start(entry());
 assert(
   entry().field("Timer start") >= new Date(Date.now()),
   "Failed to set timer start."
@@ -161,13 +163,13 @@ assert(entry().field("Running"), "Task not running after being started.");
 // finish
 init_sim();
 current_entry = lib().entries()[0];
-start();
+start(entry());
 finish();
 assert(!entry().field("Running"), "Task still running after being stopped.");
 // toggle running
 init_sim();
 current_entry = lib().entries()[0];
-toggle_running();
+toggle_running(entry());
 assert(entry().field("Running"), "Failed to toggle running state.");
 // elapsed
 init_sim();

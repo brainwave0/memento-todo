@@ -3,10 +3,10 @@
 /// <reference path="../settings"/>
 /// <reference path="../util"/>
 
-function start(): void {
-  create_log_entry('Started entry "' + entry().field("Name") + '"');
-  entry().set("Timer start", new Date(Date.now()));
-  toggle_running();
+function start(entry): void {
+  create_log_entry('Started entry "' + entry.field("Name") + '"');
+  entry.set("Timer start", new Date(Date.now()));
+  toggle_running(entry);
 }
 function finish(): void {
   create_log_entry('Finished entry "' + entry().field("Name") + '"');
@@ -14,13 +14,13 @@ function finish(): void {
   entry().set("Total runtime", entry().field("Total runtime") + elapsed());
   entry().set("Value", entry().field("Value") + arg("Rating"));
   entry().set("Latest attempt", new Date(Date.now()));
-  toggle_running();
+  toggle_running(entry());
 }
 function set_timer() {
   AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
 }
-function toggle_running() {
-  entry().set("Running", !entry().field("Running"));
+function toggle_running(entry) {
+  entry.set("Running", !entry.field("Running"));
 }
 function elapsed() {
   return Date.now() - entry().field("Timer start").getTime();
@@ -35,6 +35,6 @@ function start_stop() {
   if (entry().field("Running")) {
     finish();
   } else {
-    start();
+    start(entry());
   }
 }

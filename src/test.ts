@@ -1,6 +1,7 @@
 /// <reference path="./test-data"/>
 /// <reference path="./memento-database"/>
 /// <reference path="./util"/>
+/// <reference path="./xbisect"/>
 /// <reference path="./set-priority"/>
 /// <reference path="./instant-runoff"/>
 /// <reference path="./actions/start-stop"/>
@@ -20,7 +21,7 @@ function init_sim() {
 }
 function assert(p: boolean, msg: string): void {
   if (!p) {
-    console.log(msg);
+    throw msg;
   }
 }
 
@@ -79,9 +80,9 @@ assert(
 
 // pick task
 init_sim();
-let task = pick_task()
+let task = pick_task();
 assert(task.field("Name") == "Shave ", "Picked the wrong task.");
-assert(task.field("Running"), "Task didn't automatically start.")
+assert(task.field("Running"), "Task didn't automatically start.");
 
 // reschedule with specific datetime
 init_sim();
@@ -121,6 +122,28 @@ assert(
 assert(
   entry().field("Start datetime").getTime() <=
     new Date(Date.now() + repeat_interval).getTime(),
+  "Failed to reschedule using repeat interval."
+);
+// reschedule with and adjust repeat interval
+init_sim();
+repeat_interval = 64 * 60 * 60 * 1000;
+args["Repeat interval"] = true;
+args["Adjust repeat interval"] = "Less";
+current_entry = lib().entries()[0];
+entry().set("Repeat interval", repeat_interval);
+prev_start = entry().field("Start datetime");
+reschedule();
+assert(
+  entry().field("Start datetime") - prev_start < 365 * 24 * 60 * 60 * 1000,
+  "Start datetime set to unexpectedly later date."
+);
+assert(
+  entry().field("Start datetime") - prev_start >= 60 * 1000,
+  "Start datetime set to unexpectedly early date."
+);
+assert(
+  entry().field("Start datetime").getTime() <=
+    new Date(Date.now() + 48 * 60 * 60 * 1000).getTime(),
   "Failed to reschedule using repeat interval."
 );
 // reschedule with specific duration
@@ -229,7 +252,7 @@ assert(average_priority() == 0.03125, "set priority failed (2)");
 init_sim();
 current_entry = lib().entries()[0];
 adjust_other(entry(), -2);
-assert(Math.floor(average_priority()*1000) == -2875, "adjust_other failed");
+assert(Math.floor(average_priority() * 1000) == -2875, "adjust_other failed");
 // average_priority
 init_sim();
 assert(average_priority() == -0.9375, "average_priority failed");
@@ -270,7 +293,9 @@ assert(
 arr = [7, 6, 8, 5, 9];
 expected = [9, 8, 7, 6, 5];
 assert(
-  sort(arr, (x) => x, SortDir.Descending).every((arr, i) => arr === expected[i]),
+  sort(arr, (x) => x, SortDir.Descending).every(
+    (arr, i) => arr === expected[i]
+  ),
   "descending sort failed"
 );
 
@@ -279,3 +304,13 @@ let a = [8, 7, 6, 5, 4, 3, 0, 9];
 let b = copy_array(a);
 shuffle_array(a);
 assert(!a.every((x, i) => x === b[i]), "copy_array failed");
+
+////////////////////////////////////////////////////////////////////////////////
+// bisect                                                                     //
+////////////////////////////////////////////////////////////////////////////////
+
+assert(xbisect(38, true) == 39, "xbisect failed (1)");
+console.log(xbisect(25, false))
+assert(xbisect(25, false) == 24.5, "xbisect failed (2)");
+assert(xbisect(51, true) == 51.5, "xbisect failed (3)");
+assert(xbisect(75, false) == 74.5, "xbisect failed (4)");

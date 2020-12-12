@@ -14,5 +14,5 @@ function reschedule() {
       new Date(Date.now() + arg("Specific duration"))
     );
   }
-  entry().set("Runtime", 0);
+
 }

@@ -10,5 +10,6 @@ function pick_task() {
   }
   let task = instant_runoff(lists);
   start(task);
+  task.show();
   return task;
 }

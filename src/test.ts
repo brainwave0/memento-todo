@@ -309,7 +309,7 @@ shuffle_array(a);
 assert(!a.every((x, i) => x === b[i]), "copy_array failed");
 
 ////////////////////////////////////////////////////////////////////////////////
-// bisect                                                                     //
+// xbisect                                                                    //
 ////////////////////////////////////////////////////////////////////////////////
 
 assert(xbisect(38, true) == 39, "xbisect failed (1)");
@@ -317,3 +317,5 @@ console.log(xbisect(25, false));
 assert(xbisect(25, false) == 24.5, "xbisect failed (2)");
 assert(xbisect(51, true) == 51.5, "xbisect failed (3)");
 assert(xbisect(75, false) == 74.5, "xbisect failed (4)");
+assert(xbisect(64, true) == 128, "xbisect failed (5)");
+assert(xbisect(64, false) == 48, "xbisect failed (6)");

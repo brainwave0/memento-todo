@@ -1,5 +1,5 @@
 function xbisect(value, more) {
-  if (Math.log2(value) % 1 === 0) {
+  if ((Math.log(value) / Math.log(2)) % 1 === 0) {
     if (more) {
       return value * 2;
     } else {

@@ -24,6 +24,9 @@ function reschedule() {
 function bisect_repeat_interval(more) {
   entry().set(
     "Repeat interval",
-    xbisect(entry().field("Repeat interval") / 1000 / 60 / 60, more)
+    xbisect(entry().field("Repeat interval") / 1000 / 60 / 60, more) *
+      1000 *
+      60 *
+      60
   );
 }

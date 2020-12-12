@@ -141,9 +141,12 @@ assert(
   entry().field("Start datetime") - prev_start >= 60 * 1000,
   "Start datetime set to unexpectedly early date."
 );
+console.log(
+  entry().field("Start datetime").getTime() -
+    new Date(Date.now() + 48 * 60 * 60 * 1000).getTime()
+);
 assert(
-  entry().field("Start datetime").getTime() <=
-    new Date(Date.now() + 48 * 60 * 60 * 1000).getTime(),
+  Math.abs(entry().field("Repeat interval") - 48 * 60 * 60 * 1000) < 1000,
   "Failed to reschedule using repeat interval."
 );
 // reschedule with specific duration
@@ -310,7 +313,7 @@ assert(!a.every((x, i) => x === b[i]), "copy_array failed");
 ////////////////////////////////////////////////////////////////////////////////
 
 assert(xbisect(38, true) == 39, "xbisect failed (1)");
-console.log(xbisect(25, false))
+console.log(xbisect(25, false));
 assert(xbisect(25, false) == 24.5, "xbisect failed (2)");
 assert(xbisect(51, true) == 51.5, "xbisect failed (3)");
 assert(xbisect(75, false) == 74.5, "xbisect failed (4)");

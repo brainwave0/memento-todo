@@ -10,6 +10,7 @@ function xbisect(value, more) {
     } else {
       x -= delta / 4;
     }
+    return x;
   }
   while (x != value) {
     delta /= 2;

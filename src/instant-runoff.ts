@@ -1,7 +1,7 @@
 /// <reference path="./util"/>
 /// <reference path="./memento-database"/>
 
-function instant_runoff(lists: any[][]): any {
+function instant_runoff(lists) {
   let first_choices = lists.map(head);
   let candidate_votes = counts(first_choices);
   let total_votes = sum(candidate_votes.map(second));
@@ -11,10 +11,14 @@ function instant_runoff(lists: any[][]): any {
   if (winner) {
     return winner;
   } else {
-    let last_place_candidate = shuffleArray(candidate_votes).sort(
-      (a, b) => a[1] - b[1]
-    )[0][0];
-    if (first_choices.length > 1) {
+    let last_place_candidate = head(
+      head(
+        candidate_votes
+          .sort((a, b) => a[0].field("randnum") - b[0].field("randnum"))
+          .sort((a, b) => a[1] - b[1])
+      )
+    );
+    if (last_place_candidate && first_choices.length > 1) {
       return instant_runoff(
         lists
           .map((xs) => xs.filter((x) => x != last_place_candidate))
@@ -48,4 +52,14 @@ function head(xs: any[]): any {
 }
 function second(pair: [any, any]): any {
   return pair[1];
+}
+function print_lists(lists) {
+  for (let list of lists) {
+    let line = "";
+    for (let x of list) {
+      line += `${Math.floor(x.field("randnum") * 1000)} `;
+    }
+    console.log(line);
+  }
+  console.log();
 }

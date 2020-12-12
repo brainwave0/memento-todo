@@ -8,7 +8,8 @@ function to_array(iterable): any[] {
 }
 function ready(task: Entry): boolean {
   return (
-    !task.field("Start datetime") || task.field("Start datetime") < Date.now()
+    !task.field("Start datetime") ||
+    task.field("Start datetime").getTime() <= Date.now()
   );
 }
 function active_tasks() {
@@ -20,7 +21,7 @@ function get_all_tasks() {
 function sum(nums: number[]) {
   return nums.reduce((a, b) => a + b, 0);
 }
-function shuffleArray(array: any[]): any[] {
+function shuffle_array(array: any[]): any[] {
   for (var i = array.length - 1; i > 0; i--) {
     // Generate random number
     var j = Math.floor(Math.random() * (i + 1));
@@ -31,4 +32,26 @@ function shuffleArray(array: any[]): any[] {
   }
 
   return array;
+}
+enum SortDir {
+  Ascending,
+  Descending,
+}
+function sort(
+  elems: any[],
+  field_selector: (x: any) => any,
+  sort_direction: SortDir
+) {
+  if (sort_direction == SortDir.Ascending) {
+    return elems.sort((a, b) => field_selector(a) - field_selector(b));
+  } else {
+    return elems.sort((a, b) => field_selector(b) - field_selector(a));
+  }
+}
+function copy_array(xs) {
+  let result = [];
+  for (let x of xs) {
+    result.push(x);
+  }
+  return result;
 }

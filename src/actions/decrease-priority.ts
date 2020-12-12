@@ -1,3 +1,6 @@
 /// <reference path="../set-priority"/>
 /// <reference path="../memento-database"/>
-adjust_priority(entry(), -1);
+/// <reference path="../util"/>
+function decrease_priority() {
+  adjust_priority(-1);
+}

@@ -1,23 +1,38 @@
 class Entry {
-  fields: { name: any };
+  fields = {};
   id: number;
+  constructor() {
+    this.id = 0;
+  }
   field(name: string): any {
     return this.fields[name];
   }
   set(name: string, value: any): void {
     this.fields[name] = value;
   }
+  show(): Entry {
+    return this;
+  }
 }
 class Entries {
   length: number;
-  contents: Entry[];
+  next_id: number;
+  constructor() {
+    this.next_id = 0;
+    this.length = 0;
+  }
 }
 class Library {
   entries(): Entries {
     return entries;
   }
   create(values) {
-    return;
+    let new_entry = new Entry();
+    new_entry.id = entries.length;
+    new_entry.fields = values;
+    entries[entries.next_id] = new_entry;
+    entries.next_id += 1;
+    entries.length += 1;
   }
 }
 function entry(): Entry {
@@ -33,9 +48,9 @@ function libByName(name: string): Library {
   return new Library();
 }
 function message(x): void {
-  return;
+  console.log(x);
 }
 var current_entry: Entry;
 var library: Library;
 var entries: Entries;
-var args: { name: any };
+var args = {};

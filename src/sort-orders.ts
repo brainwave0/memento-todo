@@ -1,20 +1,8 @@
 /// <reference path="./memento-database"/>
-enum SortDir {
-  Ascending,
-  Descending,
-}
-function sort(
-  elems: any[],
-  field_selector: (x: any) => any,
-  sort_direction: SortDir
-) {
-  if (sort_direction == SortDir.Ascending) {
-    return elems.sort((a, b) => field_selector(a) - field_selector(b));
-  } else {
-    return elems.sort((a, b) => field_selector(b) - field_selector(a));
-  }
-}
 var sort_orders = [
+  function randnum(entries) {
+    return sort(entries, (e) => e.field("randnum"), SortDir.Ascending);
+  },
   function latest_attempt(entries: Entry[]): Entry[] {
     return sort(
       entries,

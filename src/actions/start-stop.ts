@@ -3,34 +3,38 @@
 /// <reference path="../settings"/>
 /// <reference path="../util"/>
 
-function start(task: Entry): void {
-    setTimer();
-    create_log_entry('Started task "' + entry().field("Name") + '"');
-    task.set("Timer start", Date.now());
+function start(): void {
+  create_log_entry('Started entry "' + entry().field("Name") + '"');
+  entry().set("Timer start", new Date(Date.now()));
+  toggle_running();
 }
-function finish(task: Entry): void {
-    create_log_entry('Finished task "' + entry().field("Name") + '"');
-    task.set("Runtime", task.field("Runtime") + elapsed());
-    task.set("Total runtime", task.field("Total runtime") + elapsed());
-    task.set("Value", task.field("Value") + arg("Rating"));
-    task.set("Latest attempt", Date.now());
+function finish(): void {
+  create_log_entry('Finished entry "' + entry().field("Name") + '"');
+  entry().set("Runtime", entry().field("Runtime") + elapsed());
+  entry().set("Total runtime", entry().field("Total runtime") + elapsed());
+  entry().set("Value", entry().field("Value") + arg("Rating"));
+  entry().set("Latest attempt", new Date(Date.now()));
+  toggle_running();
 }
-function setTimer() {
-    AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
+function set_timer() {
+  AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
 }
-function toggleRunning(task) {
-    task.set("Running", !task.field("Running"));
+function toggle_running() {
+  entry().set("Running", !entry().field("Running"));
 }
 function elapsed() {
-    return Date.now() - entry().field("Timer start");
+  return Date.now() - entry().field("Timer start").getTime();
 }
 function create_log_entry(text: string): void {
-    libByName("Log").create({ Description: text, Datetime: Date.now() });
+  libByName("Log").create({
+    Description: text,
+    Datetime: new Date(Date.now()),
+  });
 }
-if (entry().field("Running")) {
-    finish(entry());
-} else {
-    start(entry());
+function start_stop() {
+  if (entry().field("Running")) {
+    finish();
+  } else {
+    start();
+  }
 }
-toggleRunning(entry());
-

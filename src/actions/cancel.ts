@@ -1,2 +1,5 @@
 /// <reference path="../memento-database"/>
-entry().set("Running", false);
+/// <reference path="../util"/>
+function cancel() {
+  entry().set("Running", false);
+}

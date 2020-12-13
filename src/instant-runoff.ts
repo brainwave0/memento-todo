@@ -2,6 +2,7 @@
 /// <reference path="./memento-database"/>
 
 function instant_runoff(lists) {
+  lists = lists.filter((x) => x.length > 0);
   let first_choices = lists.map(head);
   let candidate_votes = counts(first_choices);
   let total_votes = sum(candidate_votes.map(second));
@@ -20,9 +21,7 @@ function instant_runoff(lists) {
     );
     if (last_place_candidate && first_choices.length > 1) {
       return instant_runoff(
-        lists
-          .map((xs) => xs.filter((x) => x != last_place_candidate))
-          .filter((x) => x.length > 0)
+        lists.map((xs) => xs.filter((x) => x != last_place_candidate))
       );
     } else if (first_choices.length == 1) {
       return first_choices[0];

@@ -5,14 +5,14 @@ var sort_orders = [
   },
   function deadline(entries: Entry[]): Entry[] {
     return sort(
-      entries.filter((x) => !x.field("Deadline")),
+      entries.filter((x) => x.field("Deadline")),
       (e) => e.field("Deadline"),
       SortDir.Ascending
     );
   },
   function value(entries: Entry[]): Entry[] {
     return sort(
-      entries.filter((x) => !x.field("Total runtime")),
+      entries.filter((x) => x.field("Total runtime")),
       (e) => e.field("Value") / e.field("Total runtime"),
       SortDir.Descending
     );

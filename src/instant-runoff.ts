@@ -2,6 +2,7 @@
 /// <reference path="./memento-database"/>
 
 function instant_runoff(lists) {
+  print_lists(lists);
   let first_choices = lists.map(head);
   let candidate_votes = counts(first_choices);
   let total_votes = sum(candidate_votes.map(second));

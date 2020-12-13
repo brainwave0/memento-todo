@@ -3,7 +3,7 @@ var sort_orders = [
   function start_datetime(entries: Entry[]): Entry[] {
     return sort(
       entries,
-      (e) => e.field("Start datetime+") || new Date(0),
+      (e) => e.field("Start datetime") || new Date(0),
       SortDir.Ascending
     );
   },

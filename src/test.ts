@@ -81,7 +81,7 @@ assert(
 // pick task
 init_sim();
 let task = pick_task();
-assert(task.field("Name") == "Shave ", "Picked the wrong task.");
+assert(task.field("Name") == "Recreation ", "Picked the wrong task.");
 assert(task.field("Running"), "Task didn't automatically start.");
 
 // reschedule with specific datetime
@@ -140,10 +140,6 @@ assert(
 assert(
   entry().field("Start datetime") - prev_start >= 60 * 1000,
   "Start datetime set to unexpectedly early date."
-);
-console.log(
-  entry().field("Start datetime").getTime() -
-    new Date(Date.now() + 48 * 60 * 60 * 1000).getTime()
 );
 assert(
   Math.abs(entry().field("Repeat interval") - 48 * 60 * 60 * 1000) < 1000,
@@ -313,7 +309,6 @@ assert(!a.every((x, i) => x === b[i]), "copy_array failed");
 ////////////////////////////////////////////////////////////////////////////////
 
 assert(xbisect(38, true) == 39, "xbisect failed (1)");
-console.log(xbisect(25, false));
 assert(xbisect(25, false) == 24.5, "xbisect failed (2)");
 assert(xbisect(51, true) == 51.5, "xbisect failed (3)");
 assert(xbisect(75, false) == 74.5, "xbisect failed (4)");

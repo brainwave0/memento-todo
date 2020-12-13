@@ -277,8 +277,8 @@ assert(ready(e), "ready doesn't work on current datetime");
 
 // sum
 assert(sum([1, 2, 3]) == 6, "sum failed");
-let arr1 = [1, 2, 3, 4, 5];
-let arr2 = [1, 2, 3, 4, 5];
+let arr1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let arr2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 shuffle_array(arr1);
 assert(!arr1.every((a, i) => a === arr2[i]), "shuffle_array failed");
 

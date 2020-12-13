@@ -18,7 +18,11 @@ var sort_orders = [
     );
   },
   function importance(entries: Entry[]): Entry[] {
-    return sort(entries, (e) => e.field("Importance"), SortDir.Descending);
+    return sort(
+      entries.filter((x) => x.field("Importance")),
+      (e) => e.field("Importance"),
+      SortDir.Descending
+    );
   },
   function remaining_runtime(entries: Entry[]): Entry[] {
     return sort(

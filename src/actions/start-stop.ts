@@ -13,7 +13,6 @@ function finish(): void {
   entry().set("Runtime", entry().field("Runtime") + elapsed());
   entry().set("Total runtime", entry().field("Total runtime") + elapsed());
   entry().set("Value", entry().field("Value") + arg("Rating"));
-  entry().set("Latest attempt", new Date(Date.now()));
   toggle_running(entry());
 }
 function set_timer() {

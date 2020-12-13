@@ -1,12 +1,9 @@
 /// <reference path="./memento-database"/>
 var sort_orders = [
-  function randnum(entries) {
-    return sort(entries, (e) => e.field("randnum"), SortDir.Ascending);
-  },
-  function latest_attempt(entries: Entry[]): Entry[] {
+  function start_datetime(entries: Entry[]): Entry[] {
     return sort(
       entries,
-      (e) => e.field("Latest attempt") || new Date(0),
+      (e) => e.field("Start datetime+") || new Date(0),
       SortDir.Ascending
     );
   },
@@ -36,8 +33,5 @@ var sort_orders = [
           : e.field("Runtime"),
       SortDir.Ascending
     );
-  },
-  function runtime(entries: Entry[]): Entry[] {
-    return sort(entries, (e) => e.field("Runtime"), SortDir.Ascending);
   },
 ];

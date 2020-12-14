@@ -1,7 +1,7 @@
 /// <reference path="./util"/>
 /// <reference path="./memento-database"/>
 
-function instant_runoff(lists) {
+function instant_runoff(lists: any[][]): any {
   lists = lists.filter((x) => x.length > 0);
   let first_choices = lists.map(head);
   let candidate_votes = counts(first_choices);
@@ -49,7 +49,7 @@ function second(pair: [any, any]): any {
 function first(pair: [any, any]): any {
   return pair[0];
 }
-function print_lists(lists) {
+function print_lists(lists: any[][]): void {
   for (let list of lists) {
     let line = "";
     for (let x of list) {
@@ -59,21 +59,18 @@ function print_lists(lists) {
   }
   console.log();
 }
-function loser(lists) {
+function loser(lists: any[][]): any {
   let heads = lists.map(head);
   let counts_ = counts(heads);
   let min_count = Math.min(...counts_.map(second));
   heads = counts_.filter((x) => x[1] == min_count).map(first);
-  let tails = lists;
-  while (tails.length > 0) {
-    tails = tails.map(tail).filter((x) => x.length > 0);
+  let tails = lists.map(tail).filter((x) => x.length > 0);
+  while (tails.length > 0 && heads.length > 1) {
     let head_ranks = heads.map((x) => [x, max_rank(x, tails)]);
     let ranks = head_ranks.map(second);
     let lowest_rank = Math.max(...ranks);
     heads = head_ranks.filter((x) => x[1] == lowest_rank).map(first);
-    if (heads.length == 1) {
-      return heads[0];
-    }
+    tails = tails.map(tail).filter((x) => x.length > 0);
   }
   if (heads.length > 0) {
     return random_choice(heads);
@@ -81,18 +78,18 @@ function loser(lists) {
     return undefined;
   }
 }
-function rank(x, xs) {
-  return xs.findIndex((y) => y.id == x.id);
+function rank(x: any, xs: any[][]): number {
+  return xs.findIndex((y) => y == x);
 }
-function ranks(x, lists) {
+function ranks(x: any, lists: any[][]): number[] {
   return lists.map((ys) => rank(x, ys));
 }
-function max_rank(x, lists) {
+function max_rank(x: any, lists: any[][]): number {
   return Math.min(...ranks(x, lists).filter((x) => x >= 0));
 }
-function tail(xs) {
+function tail(xs: any[]): any[] {
   return xs.slice(1);
 }
-function random_choice(xs) {
-  return xs[Math.floor(Math.random() * (xs.length - 1))];
+function random_choice(xs: any[]): any {
+  return xs[Math.round(Math.random() * (xs.length - 1))];
 }

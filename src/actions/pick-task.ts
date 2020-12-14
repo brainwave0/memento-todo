@@ -10,10 +10,6 @@ function pick_task() {
   }
   assert(lists.length == 5, "0200B5B8");
   assert(
-    lists.every((x) => x.length > 0),
-    "15CD7736"
-  );
-  assert(
     lists.every((x) => x.every((y) => typeof y == "object")),
     "EF666F25"
   );

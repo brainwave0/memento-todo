@@ -75,7 +75,7 @@ function loser(lists: any[][]): any {
   while (tails.length > 0 && heads.length > 1) {
     let head_ranks = heads.map((x) => [x, max_rank(x, tails)]);
     assert(head_ranks.length > 0, `head_ranks is ${head_ranks}`);
-    let ranks = head_ranks.map(second);
+    let ranks = head_ranks.map(second).filter((x) => Math.abs(x) != Infinity);
     assert(ranks.length > 0, `ranks is ${ranks}`);
     let lowest_rank = Math.max(...ranks);
     assert(Math.abs(lowest_rank) != Infinity, `lowest_rank is ${lowest_rank}`);

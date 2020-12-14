@@ -89,8 +89,8 @@ function loser(lists: any[][]): any {
     return undefined;
   }
 }
-function rank(x: any, xs: any[][]): number {
-  return xs.findIndex((y) => y == x);
+function rank(x, xs): number {
+  return xs.findIndex((y) => y.id == x.id);
 }
 function ranks(x: any, lists: any[][]): number[] {
   return lists.map((ys) => rank(x, ys));

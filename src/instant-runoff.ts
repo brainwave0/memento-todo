@@ -50,7 +50,7 @@ function first(pair: [any, any]): any {
   return pair[0];
 }
 function print_lists(lists: any[][]): void {
-  for (let list of lists) {
+  for (let list of lists) {Infinity
     let line = "";
     for (let x of list) {
       line += `${Math.floor(x.field("randnum") * 1000)} `;
@@ -60,15 +60,23 @@ function print_lists(lists: any[][]): void {
   console.log();
 }
 function loser(lists: any[][]): any {
+  assert(lists.length > 0, `lists is ${lists}`)
   let heads = lists.map(head);
+  assert(heads.length > 0, `heads is initially ${heads}`)
   let counts_ = counts(heads);
+  assert(counts_.length > 0, `counts_ is ${counts}`)
   let min_count = Math.min(...counts_.map(second));
+  assert(min_count != -Infinity, `min_count is ${min_count}`)
   heads = counts_.filter((x) => x[1] == min_count).map(first);
+  assert(heads.length > 0, `heads is ${heads} after initial filtering`)
   let tails = lists.map(tail).filter((x) => x.length > 0);
+  assert(tails.length > 0, `tails is initially ${tails}`)
   while (tails.length > 0 && heads.length > 1) {
     let head_ranks = heads.map((x) => [x, max_rank(x, tails)]);
+    assert(head_ranks.length > 0, `head_ranks is ${head_ranks}`)
     let ranks = head_ranks.map(second);
     let lowest_rank = Math.max(...ranks);
+    assert(lowest_rank != Infinity, `lowest_rank is ${lowest_rank}`)
     heads = head_ranks.filter((x) => x[1] == lowest_rank).map(first);
     tails = tails.map(tail).filter((x) => x.length > 0);
   }

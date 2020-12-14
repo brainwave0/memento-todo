@@ -55,3 +55,8 @@ function copy_array(xs) {
   }
   return result;
 }
+function assert(p: boolean, msg: string): void {
+  if (!p) {
+    throw msg;
+  }
+}

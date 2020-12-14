@@ -19,11 +19,6 @@ function init_sim() {
     library.create(Object.assign({}, obj));
   }
 }
-function assert(p: boolean, msg: string): void {
-  if (!p) {
-    throw msg;
-  }
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // actions                                                                    //

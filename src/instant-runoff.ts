@@ -2,6 +2,7 @@
 /// <reference path="./memento-database"/>
 
 function instant_runoff(lists) {
+  print_lists(lists)
   lists = lists.filter((x) => x.length > 0);
   let first_choices = lists.map(head);
   let candidate_votes = counts(first_choices);
@@ -12,16 +13,10 @@ function instant_runoff(lists) {
   if (winner) {
     return winner;
   } else {
-    let last_place_candidate = head(
-      head(
-        candidate_votes
-          .sort((a, b) => a[0].field("randnum") - b[0].field("randnum"))
-          .sort((a, b) => a[1] - b[1])
-      )
-    );
-    if (last_place_candidate && first_choices.length > 1) {
+    let loser_ = loser(lists);
+    if (loser_ && first_choices.length > 1) {
       return instant_runoff(
-        lists.map((xs) => xs.filter((x) => x != last_place_candidate))
+        lists.map((xs) => xs.filter((x) => x.id != loser_.id))
       );
     } else if (first_choices.length == 1) {
       return first_choices[0];
@@ -52,6 +47,9 @@ function head(xs: any[]): any {
 function second(pair: [any, any]): any {
   return pair[1];
 }
+function first(pair: [any, any]): any {
+  return pair[0];
+}
 function print_lists(lists) {
   for (let list of lists) {
     let line = "";
@@ -61,4 +59,34 @@ function print_lists(lists) {
     console.log(line);
   }
   console.log();
+}
+function loser(lists) {
+  let heads = lists.map(head);
+  let counts_ = counts(heads);
+  let min_count = Math.min(...counts_.map(second));
+  heads = counts_.filter((x) => x[1] == min_count).map(first);
+  let tails = lists;
+  while (tails.length > 0) {
+    tails = tails.map(tail).filter((x) => x.length > 0);
+    let head_ranks = heads.map((x) => [x, max_rank(x, tails)]);
+    let ranks = head_ranks.map(second);
+    let lowest_rank = Math.max(...ranks);
+    heads = head_ranks.filter((x) => x[1] == lowest_rank).map(first);
+    if (heads.length == 1) {
+      return heads[0];
+    }
+  }
+  return undefined;
+}
+function rank(x, xs) {
+  return xs.findIndex((y) => y.id == x.id);
+}
+function ranks(x, lists) {
+  return lists.map((ys) => rank(x, ys));
+}
+function max_rank(x, lists) {
+  return Math.min(...ranks(x, lists).filter((x) => x >= 0));
+}
+function tail(xs) {
+  return xs.slice(1);
 }

@@ -235,7 +235,10 @@ assert(head([]) === undefined, "head didn't return undefined");
 // second
 assert(second([1, 3]) == 3, "second failed");
 
-// set priority
+////////////////////////////////////////////////////////////////////////////////
+// set priority                                                               //
+////////////////////////////////////////////////////////////////////////////////
+
 // adjust_priority
 init_sim();
 current_entry = lib().entries()[0];

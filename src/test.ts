@@ -317,3 +317,5 @@ assert(xbisect(51, true) == 51.5, "xbisect failed (3)");
 assert(xbisect(75, false) == 74.5, "xbisect failed (4)");
 assert(xbisect(64, true) == 128, "xbisect failed (5)");
 assert(xbisect(64, false) == 48, "xbisect failed (6)");
+
+console.log("tests complete")

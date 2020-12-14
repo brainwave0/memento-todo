@@ -75,7 +75,11 @@ function loser(lists) {
       return heads[0];
     }
   }
-  return undefined;
+  if (heads.length > 0) {
+    return random_choice(heads);
+  } else {
+    return undefined;
+  }
 }
 function rank(x, xs) {
   return xs.findIndex((y) => y.id == x.id);
@@ -88,4 +92,7 @@ function max_rank(x, lists) {
 }
 function tail(xs) {
   return xs.slice(1);
+}
+function random_choice(xs) {
+  return xs[Math.floor(Math.random() * (xs.length - 1))];
 }

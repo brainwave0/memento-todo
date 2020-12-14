@@ -97,10 +97,6 @@ function ranks(x: any, lists: any[][]): number[] {
 }
 function max_rank(x: any, lists: any[][]): number {
   let result = Math.min(...ranks(x, lists).filter((x) => x >= 0));
-  assert(
-    result != undefined && Math.abs(result) != Infinity,
-    `max_rank returned ${result}`
-  );
   return result;
 }
 function tail(xs: any[]): any[] {

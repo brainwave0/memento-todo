@@ -15,7 +15,7 @@ function init_sim() {
   library = new Library();
   entries = new Entries();
   args = {};
-  for (let obj of test_data[0]) {
+  for (let obj of test_data[1]) {
     library.create(Object.assign({}, obj));
   }
 }
@@ -74,13 +74,13 @@ assert(
 );
 
 // pick task
-// init_sim();
-// let task = pick_task();
-// assert(
-//   task.field("Name") == "Recreation ",
-//   `Picked the wrong task: ${task.field("Name")}`
-// );
-// assert(task.field("Running"), "Task didn't automatically start.");
+init_sim();
+let task = pick_task();
+assert(
+  task.field("Name") == "Mop ",
+  `Picked the wrong task: ${task.field("Name")}`
+);
+assert(task.field("Running"), "Task didn't automatically start.");
 
 // reschedule with specific datetime
 init_sim();
@@ -204,13 +204,7 @@ assert(elapsed() >= elapsed_duration, "Failed to calculate elapsed time.");
 
 // counts
 let count_results = counts([4, 4, 2, 4, 1, 3, 5, 5, 2, 3]);
-let expected_results = [
-  [4, 3],
-  [2, 2],
-  [1, 1],
-  [3, 2],
-  [5, 2],
-];
+let expected_results = [3, 3, 2, 3, 1, 2, 2, 2, 2, 2];
 if (count_results.length == expected_results.length) {
   for (var i = 0; i < count_results.length; i++) {
     assert(
@@ -223,7 +217,7 @@ if (count_results.length == expected_results.length) {
     );
   }
 } else {
-  console.log("Count function return value is the wrong length.");
+  throw "Count function return value is the wrong length.";
 }
 
 // head
@@ -238,24 +232,24 @@ assert(second([1, 3]) == 3, "second failed");
 ////////////////////////////////////////////////////////////////////////////////
 
 // adjust_priority
-init_sim();
-current_entry = lib().entries()[0];
-adjust_priority(1);
-assert(entry().field("Importance") == 0, "set priority failed (4)");
-assert(average_priority() == -0.90625, "set priority failed (1)");
-init_sim();
-current_entry = lib().entries()[0];
-adjust_priority(-1);
-assert(entry().field("Importance") == -1, "set priority failed (3)");
-assert(average_priority() == 0.03125, "set priority failed (2)");
-// adjust_other
-init_sim();
-current_entry = lib().entries()[0];
-adjust_other(entry(), -2);
-assert(Math.floor(average_priority() * 1000) == -2875, "adjust_other failed");
-// average_priority
-init_sim();
-assert(average_priority() == -0.9375, "average_priority failed");
+// init_sim();
+// current_entry = lib().entries()[0];
+// adjust_priority(1);
+// assert(entry().field("Importance") == 3, "set priority failed (4)");
+// assert(average_priority() == -0.90625, "set priority failed (1)");
+// init_sim();
+// current_entry = lib().entries()[0];
+// adjust_priority(-1);
+// assert(entry().field("Importance") == -1, "set priority failed (3)");
+// assert(average_priority() == 0.03125, "set priority failed (2)");
+// // adjust_other
+// init_sim();
+// current_entry = lib().entries()[0];
+// adjust_other(entry(), -2);
+// assert(Math.floor(average_priority() * 1000) == -2875, "adjust_other failed");
+// // average_priority
+// init_sim();
+// assert(average_priority() == -0.9375, "average_priority failed");
 
 ////////////////////////////////////////////////////////////////////////////////
 // util                                                                       //

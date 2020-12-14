@@ -18,8 +18,8 @@ function active_tasks() {
 function get_all_tasks() {
   return to_array(lib().entries());
 }
-function sum(nums: number[]) {
-  return nums.reduce((a, b) => a + b, 0);
+function sum(nums: number[], f = id) {
+  return nums.map(f).reduce((a, b) => a + b, 0);
 }
 function shuffle_array(array: any[]): any[] {
   for (var i = array.length - 1; i > 0; i--) {
@@ -59,4 +59,7 @@ function assert(p: boolean, msg: string): void {
   if (!p) {
     throw msg;
   }
+}
+function id(x) {
+  return x;
 }

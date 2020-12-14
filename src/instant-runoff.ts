@@ -3,54 +3,26 @@
 
 function instant_runoff(lists: any[][]): any {
   lists = lists.filter((x) => x.length > 0);
-  assert(lists.length > 0, "7B09FEFA");
   let first_choices = lists.map(head);
-  assert(
-    first_choices.every((x) => typeof x == "object"),
-    "125F6295"
-  );
-  let candidate_votes = counts(first_choices);
-  assert(candidate_votes.length > 0, "A781115C");
-  assert(
-    candidate_votes.every((x) => typeof x[0] == "object"),
-    "3443E68C"
-  );
-  assert(
-    candidate_votes.every((x) => typeof x[1] == "number"),
-    "CA36E6A1"
-  );
-  let total_votes = sum(candidate_votes.map(second));
-  assert(total_votes > 0, "970077C7");
+  let counts_ = counts(first_choices);
+  let first_choice_counts = unique(zip(first_choices, counts_), first);
+  let total_votes = sum(first_choice_counts, second);
   let winner = head(
-    head(candidate_votes.filter((x) => x[1] > total_votes / 2))
+    head(first_choice_counts.filter((x) => x[1] > total_votes / 2))
   );
   if (winner) {
     return winner;
   } else {
     let loser_ = loser(lists);
-    assert(loser_ != undefined, "DE2B3572");
-    if (loser_ && first_choices.length > 1) {
-      return instant_runoff(
-        lists.map((xs) => xs.filter((x) => x.id != loser_.id))
-      );
-    } else if (first_choices.length == 1) {
-      return first_choices[0];
+    if (loser_ && unique(first_choices).length > 1) {
+      return instant_runoff(lists.map((xs) => xs.filter((x) => x != loser_)));
     } else {
-      throw "failed to pick";
+      return random_choice(first_choices);
     }
   }
 }
-function counts(xs: any[]): [any, number][] {
-  let count_map: [any, number][] = [];
-  for (let x of xs) {
-    let index = count_map.map(head).indexOf(x);
-    if (index > -1) {
-      count_map[index][1] += 1;
-    } else {
-      count_map.push([x, 1]);
-    }
-  }
-  return count_map;
+function counts(xs) {
+  return xs.map((x) => xs.filter((y) => x == y).length);
 }
 function head(xs: any[]): any {
   if (xs) {
@@ -59,10 +31,10 @@ function head(xs: any[]): any {
     return undefined;
   }
 }
-function second(pair: [any, any]): any {
+function second(pair): any {
   return pair[1];
 }
-function first(pair: [any, any]): any {
+function first(pair): any {
   return pair[0];
 }
 function print_lists(lists: any[][]): void {
@@ -70,58 +42,47 @@ function print_lists(lists: any[][]): void {
     Infinity;
     let line = "";
     for (let x of list) {
-      line += `${Math.floor(x.field("randnum") * 1000)} `;
+      line += `${Math.floor(x.field("randnum") * 10000)} `;
     }
     console.log(line);
   }
   console.log();
 }
-function loser(lists: any[][]): any {
+function loser(lists) {
+  function loser2(heads, tails) {
+    let counts_ = counts(heads);
+    let min_count = Math.min(...counts_);
+    let losers = unique(
+      zip(heads, counts_)
+        .filter((x) => x[1] == min_count)
+        .map(first)
+    );
+
+    let ranks = losers.map((x) => max_rank(x, tails)).filter((x) => x != -1);
+    let min_rank_ = Math.max(...ranks);
+    losers = zip(losers, ranks)
+      .filter((x) => x[1] == min_rank_)
+      .map(first);
+
+    if (losers.length == 1) {
+      return losers[0];
+    } else if (empty(tails.filter(not_empty))) {
+      return random_choice(heads);
+    } else if (losers.length > 1) {
+      return loser2(
+        losers,
+        tails.map((xs) => xs.slice(min_rank_ + 1))
+      );
+    } else {
+      return undefined;
+    }
+  }
   let heads = lists.map(head);
-  assert(heads.length > 0, "B8AD85DF");
-  assert(
-    heads.every((x) => typeof x == "object"),
-    "E23D0FAC"
-  );
-  let counts_ = counts(heads);
-  let min_count = Math.min(...counts_.map(second));
-  assert(min_count > 0, "58A3FAC7");
-  heads = counts_.filter((x) => x[1] == min_count).map(first);
-  assert(heads.length > 0, "405DA2F3");
-  let tails = lists.map(tail).filter((x) => x.length > 0);
-  assert(tails.length > 0, "C75252D3");
-  while (tails.length > 0 && heads.length > 1) {
-    let head_ranks = heads
-      .map((x) => [x, max_rank(x, tails)])
-      .filter((x) => Math.abs(x[1]) != Infinity);
-    assert(
-      head_ranks.every((x) => typeof x[0] == "object"),
-      "017A30F1"
-    );
-    assert(
-      head_ranks.every((x) => typeof x[1] == "number"),
-      "2A2BA251"
-    );
-    let ranks = head_ranks.map(second).filter((x) => Math.abs(x) != Infinity);
-    assert(ranks.length > 0, "08488931");
-    assert(
-      ranks.every((x) => typeof x == "number"),
-      "09CC8F9B"
-    );
-    let lowest_rank = Math.max(...ranks);
-    assert(typeof lowest_rank == "number", "C6E13E0F");
-    assert(Math.abs(lowest_rank) != Infinity, "31F01CC1");
-    heads = head_ranks.filter((x) => x[1] == lowest_rank).map(first);
-    tails = tails.map(tail).filter((x) => x.length > 0);
-  }
-  if (heads.length > 0) {
-    return random_choice(heads);
-  } else {
-    return undefined;
-  }
+  let tails = lists.map(tail);
+  return loser2(heads, tails);
 }
 function rank(x, xs): number {
-  return xs.findIndex((y) => y.id == x.id);
+  return xs.findIndex((y) => y == x);
 }
 function ranks(x: any, lists: any[][]): number[] {
   return lists.map((ys) => rank(x, ys));
@@ -135,4 +96,22 @@ function tail(xs: any[]): any[] {
 }
 function random_choice(xs: any[]): any {
   return xs[Math.round(Math.random() * (xs.length - 1))];
+}
+function not_empty(xs) {
+  return xs.length > 0;
+}
+function empty(xs) {
+  return xs.length == 0;
+}
+function zip(...rows) {
+  return [...rows[0]].map((_, c) => rows.map((row) => row[c]));
+}
+function unique(xs, f = id) {
+  let results = [];
+  for (let x of xs) {
+    if (results.map(f).indexOf(f(x)) == -1) {
+      results.push(x);
+    }
+  }
+  return results;
 }

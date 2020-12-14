@@ -83,7 +83,7 @@ function loser(lists: any[][]): any {
     tails = tails.map(tail).filter((x) => x.length > 0);
   }
   if (heads.length > 0) {
-    assert(random_choice(heads) != undefined, `random choice is undefined`)
+    assert(random_choice(heads) != undefined, `random choice is undefined`);
     return random_choice(heads);
   } else {
     return undefined;
@@ -96,7 +96,12 @@ function ranks(x: any, lists: any[][]): number[] {
   return lists.map((ys) => rank(x, ys));
 }
 function max_rank(x: any, lists: any[][]): number {
-  return Math.min(...ranks(x, lists).filter((x) => x >= 0));
+  let result = Math.min(...ranks(x, lists).filter((x) => x >= 0));
+  assert(
+    result != undefined && Math.abs(result) != Infinity,
+    `max_rank returned ${result}`
+  );
+  return result;
 }
 function tail(xs: any[]): any[] {
   return xs.slice(1);

@@ -5,7 +5,7 @@ function instant_runoff(lists: any[][]): any {
   lists = lists.filter((x) => x.length > 0);
   let first_choices = lists.map(head);
   let counts_ = counts(first_choices);
-  let first_choice_counts = unique(zip(first_choices, counts_), first);
+  let first_choice_counts = unique(zip(first_choices, counts_), (x) => x[0].id);
   let total_votes = sum(first_choice_counts, second);
   let winner = head(
     head(first_choice_counts.filter((x) => x[1] > total_votes / 2))
@@ -14,15 +14,17 @@ function instant_runoff(lists: any[][]): any {
     return winner;
   } else {
     let loser_ = loser(lists);
-    if (loser_ && unique(first_choices).length > 1) {
-      return instant_runoff(lists.map((xs) => xs.filter((x) => x != loser_)));
+    if (loser_ && unique(first_choices, by_id).length > 1) {
+      return instant_runoff(
+        lists.map((xs) => xs.filter((x) => x.id != loser_.id))
+      );
     } else {
       return random_choice(first_choices);
     }
   }
 }
 function counts(xs) {
-  return xs.map((x) => xs.filter((y) => x == y).length);
+  return xs.map((x) => xs.filter((y) => x.id == y.id).length);
 }
 function head(xs: any[]): any {
   if (xs) {
@@ -39,7 +41,6 @@ function first(pair): any {
 }
 function print_lists(lists: any[][]): void {
   for (let list of lists) {
-    Infinity;
     let line = "";
     for (let x of list) {
       line += `${Math.floor(x.field("randnum") * 10000)} `;
@@ -55,7 +56,8 @@ function loser(lists) {
     let losers = unique(
       zip(heads, counts_)
         .filter((x) => x[1] == min_count)
-        .map(first)
+        .map(first),
+      by_id
     );
 
     let ranks = losers.map((x) => max_rank(x, tails)).filter((x) => x != -1);
@@ -89,7 +91,7 @@ function loser(lists) {
   return loser2(heads, tails);
 }
 function rank(x, xs): number {
-  return xs.findIndex((y) => y == x);
+  return xs.findIndex((y) => y.id == x.id);
 }
 function ranks(x: any, lists: any[][]): number[] {
   return lists.map((ys) => rank(x, ys));
@@ -122,4 +124,7 @@ function unique(xs, f = id) {
     }
   }
   return results;
+}
+function by_id(x) {
+  return x.id;
 }

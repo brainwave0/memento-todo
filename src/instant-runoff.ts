@@ -69,13 +69,6 @@ function loser(lists) {
     if (losers.length == 1) {
       return losers[0];
     } else if (empty(tails.filter(not_empty))) {
-      message(tails);
-      message(min_rank_);
-      message(ranks);
-      message(losers);
-      message(min_count);
-      message(counts_);
-      message(heads);
       return random_choice(heads);
     } else if (losers.length > 1) {
       return loser2(

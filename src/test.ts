@@ -15,7 +15,7 @@ function init_sim() {
   library = new Library();
   entries = new Entries();
   args = {};
-  for (let obj of test_data[1]) {
+  for (let obj of test_data) {
     library.create(Object.assign({}, obj));
   }
 }

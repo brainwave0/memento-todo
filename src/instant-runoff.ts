@@ -17,6 +17,7 @@ function instant_runoff(lists: any[][]): any {
     if (loser_ && unique(first_choices).length > 1) {
       return instant_runoff(lists.map((xs) => xs.filter((x) => x != loser_)));
     } else {
+      message("a");
       return random_choice(first_choices);
     }
   }
@@ -67,6 +68,7 @@ function loser(lists) {
     if (losers.length == 1) {
       return losers[0];
     } else if (empty(tails.filter(not_empty))) {
+      message("b");
       return random_choice(heads);
     } else if (losers.length > 1) {
       return loser2(
@@ -95,7 +97,7 @@ function tail(xs: any[]): any[] {
   return xs.slice(1);
 }
 function random_choice(xs: any[]): any {
-  message("randomized")
+  message("randomized");
   return xs[Math.round(Math.random() * (xs.length - 1))];
 }
 function not_empty(xs) {

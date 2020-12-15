@@ -17,7 +17,6 @@ function instant_runoff(lists: any[][]): any {
     if (loser_ && unique(first_choices).length > 1) {
       return instant_runoff(lists.map((xs) => xs.filter((x) => x != loser_)));
     } else {
-      message("a");
       return random_choice(first_choices);
     }
   }
@@ -68,7 +67,13 @@ function loser(lists) {
     if (losers.length == 1) {
       return losers[0];
     } else if (empty(tails.filter(not_empty))) {
-      message("b");
+      message(tails);
+      message(min_rank_);
+      message(ranks);
+      message(losers);
+      message(min_count);
+      message(counts_);
+      message(heads);
       return random_choice(heads);
     } else if (losers.length > 1) {
       return loser2(

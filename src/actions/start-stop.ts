@@ -8,8 +8,6 @@ function start(): void {
 function finish(): void {
   create_log_entry('Finished entry "' + entry().field("Name") + '"');
   entry().set("Runtime", entry().field("Runtime") + elapsed());
-  entry().set("Total runtime", entry().field("Total runtime") + elapsed());
-  entry().set("Value", entry().field("Value") + arg("Rating"));
   entry().set("Running", false);
 }
 function elapsed() {

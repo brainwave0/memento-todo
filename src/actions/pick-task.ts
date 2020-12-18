@@ -9,7 +9,7 @@ function pick_task() {
     lists.push(fn(active_tasks()));
   }
   let task = instant_runoff(lists);
-  start();
+  start(task);
   task.show();
   return [task, lists];
 }

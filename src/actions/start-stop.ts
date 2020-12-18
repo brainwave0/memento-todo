@@ -1,9 +1,9 @@
 /// <reference path="../memento-database"/>
 /// <reference path="../util"/>
-function start(): void {
-  create_log_entry('Started entry "' + entry().field("Name") + '"');
-  entry().set("Timer start", new Date());
-  entry().set("Running", true);
+function start(task): void {
+  create_log_entry('Started entry "' + task.field("Name") + '"');
+  task.set("Timer start", new Date());
+  task.set("Running", true);
 }
 function finish(): void {
   create_log_entry('Finished entry "' + entry().field("Name") + '"');
@@ -23,6 +23,6 @@ function start_stop() {
   if (entry().field("Running")) {
     finish();
   } else {
-    start();
+    start(entry());
   }
 }

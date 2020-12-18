@@ -96,10 +96,6 @@ function max_rank(x: any, lists: any[][]): number {
 function tail(xs: any[]): any[] {
   return xs.slice(1);
 }
-function random_choice(xs: any[]): any {
-  message("randomized");
-  return xs[Math.round(Math.random() * (xs.length - 1))];
-}
 function not_empty(xs) {
   return xs.length > 0;
 }

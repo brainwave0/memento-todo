@@ -1,25 +1,16 @@
-/// <reference path="../android-alarm"/>
 /// <reference path="../memento-database"/>
-/// <reference path="../settings"/>
 /// <reference path="../util"/>
-
-function start(entry): void {
-  create_log_entry('Started entry "' + entry.field("Name") + '"');
-  entry.set("Timer start", new Date(Date.now()));
-  toggle_running(entry);
+function start(): void {
+  create_log_entry('Started entry "' + entry().field("Name") + '"');
+  entry().set("Timer start", new Date());
+  entry().set("Running", true);
 }
 function finish(): void {
   create_log_entry('Finished entry "' + entry().field("Name") + '"');
   entry().set("Runtime", entry().field("Runtime") + elapsed());
   entry().set("Total runtime", entry().field("Total runtime") + elapsed());
   entry().set("Value", entry().field("Value") + arg("Rating"));
-  toggle_running(entry());
-}
-function set_timer() {
-  AndroidAlarm.timer(timer_duration, entry().field("Name"), false);
-}
-function toggle_running(entry) {
-  entry.set("Running", !entry.field("Running"));
+  entry().set("Running", false);
 }
 function elapsed() {
   return Date.now() - entry().field("Timer start").getTime();
@@ -34,6 +25,6 @@ function start_stop() {
   if (entry().field("Running")) {
     finish();
   } else {
-    start(entry());
+    start();
   }
 }

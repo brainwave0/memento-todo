@@ -9,7 +9,7 @@ function reschedule() {
   }
   if (arg("Specific datetime")) {
     entry().set("Start datetime", arg("Specific datetime"));
-  } else if (arg("Repeat interval")) {
+  } else if (arg("Repeat Interval")) {
     entry().set(
       "Start datetime",
       new Date(Date.now() + entry().field("Repeat Interval"))
@@ -23,8 +23,8 @@ function reschedule() {
 }
 function bisect_repeat_interval(more) {
   entry().set(
-    "Repeat interval",
-    xbisect(entry().field("Repeat interval") / 1000 / 60 / 60, more) *
+    "Repeat Interval",
+    xbisect(entry().field("Repeat Interval") / 1000 / 60 / 60, more) *
       1000 *
       60 *
       60

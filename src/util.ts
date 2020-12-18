@@ -18,7 +18,7 @@ function active_tasks() {
 function get_all_tasks() {
   return to_array(lib().entries());
 }
-function sum(nums: number[], f = id) {
+function sum(nums, f = id) {
   return nums.map(f).reduce((a, b) => a + b, 0);
 }
 function shuffle_array(array: any[]): any[] {
@@ -62,4 +62,33 @@ function assert(p: boolean, msg: string): void {
 }
 function id(x) {
   return x;
+}
+function array_equals2(ass, bss) {
+  if (ass.length != bss.length) {
+    return false;
+  }
+  for (let i = 0; i < ass.length; i++) {
+    if (!array_equals(ass[i], bss[i])) {
+      return false;
+    }
+  }
+  return true;
+}
+function array_equals(as, bs) {
+  if (as.length != bs.length) {
+    return false;
+  }
+  for (let i = 0; i < as.length; i++) {
+    if (as[i] != bs[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+function random_choice(xs: any[]): any {
+  return xs[Math.round(Math.random() * (xs.length - 1))];
+}
+function average_priority() {
+  var all_tasks = get_all_tasks();
+  return sum(all_tasks.map((x) => x.field("Importance"))) / all_tasks.length;
 }

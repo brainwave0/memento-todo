@@ -12,8 +12,8 @@ var sort_orders = [
   },
   function value(entries: Entry[]): Entry[] {
     return sort(
-      entries.filter((x) => x.field("Total runtime")),
-      (e) => e.field("Value") / e.field("Total runtime"),
+      entries.filter((x) => x.field("Value")),
+      (e) => e.field("Value"),
       SortDir.Descending
     );
   },

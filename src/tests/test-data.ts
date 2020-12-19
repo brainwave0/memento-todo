@@ -14,6 +14,7 @@ var test_data = [
     Value: 4,
     Done: 0,
     "Total runtime": 454502,
+    Success: 0,
   },
   {
     Name: "Brush teeth ",
@@ -30,6 +31,7 @@ var test_data = [
     Value: 4,
     Done: 0,
     "Total runtime": 522983,
+    Success: 0,
   },
   {
     Name: "Cancel Crunchyroll ",
@@ -46,6 +48,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Cancel ProtonVPN ",
@@ -62,6 +65,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Clean mask ",
@@ -78,6 +82,7 @@ var test_data = [
     Value: 11,
     Done: 1,
     "Total runtime": 1034630,
+    Success: 0,
   },
   {
     Name: "Clean the kitchen ",
@@ -94,6 +99,7 @@ var test_data = [
     Value: 11,
     Done: 0,
     "Total runtime": 3824604,
+    Success: 0,
   },
   {
     Name: "Clean water chamber and tubing ",
@@ -110,6 +116,7 @@ var test_data = [
     Value: 4,
     Done: 0,
     "Total runtime": 477473,
+    Success: 0,
   },
   {
     Name: "Clean your bathroom ",
@@ -126,6 +133,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Contribute to IPFS ",
@@ -142,6 +150,7 @@ var test_data = [
     Value: 5,
     Done: 0,
     "Total runtime": 6123673,
+    Success: 0,
   },
   {
     Name: "Cook ",
@@ -158,6 +167,7 @@ var test_data = [
     Value: 5,
     Done: 0,
     "Total runtime": 2020240,
+    Success: 0,
   },
   {
     Name: "Disinfect BiPAP ",
@@ -174,6 +184,7 @@ var test_data = [
     Value: 3,
     Done: 1,
     "Total runtime": 467459,
+    Success: 0,
   },
   {
     Name: "Enroll",
@@ -190,6 +201,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Forehead medicine ",
@@ -206,6 +218,7 @@ var test_data = [
     Value: 6,
     Done: 0,
     "Total runtime": 1136664,
+    Success: 0,
   },
   {
     Name: "Laundry ",
@@ -222,6 +235,7 @@ var test_data = [
     Value: 0,
     Done: 0,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Learn Japanese ",
@@ -238,6 +252,7 @@ var test_data = [
     Value: 25,
     Done: 0,
     "Total runtime": 12018302,
+    Success: 0,
   },
   {
     Name: "Lift ",
@@ -255,6 +270,7 @@ var test_data = [
     Value: 12,
     Done: 0,
     "Total runtime": 753714,
+    Success: 0,
   },
   {
     Name: "Make music ",
@@ -271,6 +287,7 @@ var test_data = [
     Value: 4,
     Done: 0,
     "Total runtime": 2379963,
+    Success: 0,
   },
   {
     Name: "Manage music collection ",
@@ -287,6 +304,7 @@ var test_data = [
     Value: 19,
     Done: 0,
     "Total runtime": 26961311,
+    Success: 0,
   },
   {
     Name: "Meds ",
@@ -303,6 +321,7 @@ var test_data = [
     Value: 7,
     Done: 0,
     "Total runtime": 1611528,
+    Success: 0,
   },
   {
     Name: "Mop ",
@@ -319,6 +338,7 @@ var test_data = [
     Value: 4,
     Done: 0,
     "Total runtime": 1827824,
+    Success: 0,
   },
   {
     Name: "Pay off credit card ",
@@ -335,6 +355,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Pick up the poops ",
@@ -351,6 +372,7 @@ var test_data = [
     Value: 0,
     Done: 0,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Put stuff away and update Inventory ",
@@ -367,6 +389,7 @@ var test_data = [
     Value: 5,
     Done: 0,
     "Total runtime": 1201348,
+    Success: 0,
   },
   {
     Name: "Recreation ",
@@ -383,6 +406,7 @@ var test_data = [
     Value: 21,
     Done: 0,
     "Total runtime": 18135557,
+    Success: 0,
   },
   {
     Name: "Refill the dogs water bowls ",
@@ -399,6 +423,7 @@ var test_data = [
     Value: 0,
     Done: 1,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Rinse the blue filter ",
@@ -415,6 +440,7 @@ var test_data = [
     Value: 0,
     Done: 0,
     "Total runtime": 0,
+    Success: 0,
   },
   {
     Name: "Shave ",
@@ -431,6 +457,7 @@ var test_data = [
     Value: 3,
     Done: 0,
     "Total runtime": 217256,
+    Success: 0,
   },
   {
     Name: "Shower ",
@@ -447,6 +474,7 @@ var test_data = [
     Value: 6,
     Done: 0,
     "Total runtime": 1038846,
+    Success: 0,
   },
   {
     Name: "Stretch",
@@ -463,6 +491,7 @@ var test_data = [
     Value: 10,
     Done: 1,
     "Total runtime": 1199804,
+    Success: 0,
   },
   {
     Name: "Take out the trash",
@@ -479,6 +508,7 @@ var test_data = [
     Value: 9,
     Done: 1,
     "Total runtime": 937737,
+    Success: 0,
   },
   {
     Name: "Walk Lucy ",
@@ -495,5 +525,6 @@ var test_data = [
     Value: 18,
     Done: 0,
     "Total runtime": 12272919,
+    Success: 0,
   },
 ];

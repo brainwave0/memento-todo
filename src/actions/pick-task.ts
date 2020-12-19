@@ -2,7 +2,7 @@
 /// <reference path="../util"/>
 /// <reference path="../sort-orders"/>
 /// <reference path="../instant-runoff"/>
-/// <reference path="./start-stop"/>
+/// <reference path="./start"/>
 function pick_task() {
   let lists: Entry[][] = [];
   for (let fn of sort_orders) {

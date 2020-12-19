@@ -17,6 +17,9 @@ var sort_orders = [
       SortDir.Descending
     );
   },
+  function successfulness(entries: Entry[]): Entry[] {
+    return sort(entries, (e) => e.field("Success"), SortDir.Descending);
+  },
   function importance(entries: Entry[]): Entry[] {
     return sort(
       entries.filter((x) => x.field("Importance")),

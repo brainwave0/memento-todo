@@ -5,7 +5,9 @@
 /// <reference path="./actions/set-priority"/>
 /// <reference path="./actions/pick-task"/>
 /// <reference path="./actions/reschedule"/>
-/// <reference path="./actions/start-stop"/>
+/// <reference path="./actions/start"/>
+/// <reference path="./actions/finish"/>
+/// <reference path="./start-stop"/>
 /// <reference path="../util"/>
 /// <reference path="./instant-runoff"/>
 /// <reference path="./set-priority"/>

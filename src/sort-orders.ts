@@ -1,4 +1,5 @@
 /// <reference path="./memento-database"/>
+/// <reference path="./util"/>
 var sort_orders = [
   function start_datetime(entries: Entry[]): Entry[] {
     return sort(entries, (e) => e.field("Start datetime"), SortDir.Ascending);
@@ -37,4 +38,20 @@ var sort_orders = [
       SortDir.Ascending
     );
   },
+  stochastic,
 ];
+function stochastic(entries) {
+  let is_member = {};
+  let results = [];
+  for (let entry of entries) {
+    is_member[entry.id] = false;
+  }
+  for (let i = 0; i < entries.length; i++) {
+    let choices = entries.filter((x) => !is_member[x.id]);
+    let weights = choices.map((x) => Math.max(1, x.field("Success")));
+    let choice = weighted_random_choice(choices, weights);
+    is_member[choice.id] = true;
+    results.push(choice);
+  }
+  return results;
+}

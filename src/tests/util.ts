@@ -1,5 +1,5 @@
 /// <reference path="./test-data"/>
-message("testing util")
+message("testing util");
 // to array
 init_sim();
 let entries_array = to_array(lib().entries());
@@ -98,3 +98,28 @@ assert(
 // array_equals
 assert(!array_equals([1, 1, 1], [2, 2, 2]), "test of array_equals failed (1)");
 assert(array_equals([1, 1, 1], [1, 1, 1]), "test of array_equals failed (2)");
+
+// random choice
+init_sim();
+let all_tasks = get_all_tasks();
+let occurrences = all_tasks.map((x) => 0);
+for (let i = 0; i < 1000; i++) {
+  occurrences[
+    weighted_random_choice(
+      all_tasks,
+      all_tasks.map((x) => x.id)
+    )
+  ] += 1;
+}
+assert(
+  Math.max(...occurrences) == occurrences[occurrences.length - 1],
+  "test of random choice failed"
+);
+
+// find closest index
+let index = find_closest_index([1, 2, 3, 4, 5], 2.5);
+assert(index == 2 || index == 3, "test of find_closest_index failed");
+
+// unique
+let dups = [3, 8, 2, 9, 7, 7, 8, 1, 8, 3];
+assert(array_equals(unique(dups), [3, 8, 2, 9, 7, 1]), "test of unique failed");

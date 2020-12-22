@@ -105,15 +105,6 @@ function empty(xs) {
 function zip(...rows) {
   return [...rows[0]].map((_, c) => rows.map((row) => row[c]));
 }
-function unique(xs, f = id) {
-  let results = [];
-  for (let x of xs) {
-    if (results.map(f).indexOf(f(x)) == -1) {
-      results.push(x);
-    }
-  }
-  return results;
-}
 function by_id(x) {
   return x.id;
 }

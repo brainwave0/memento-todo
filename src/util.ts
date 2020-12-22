@@ -92,3 +92,36 @@ function average_priority() {
   var all_tasks = get_all_tasks();
   return sum(all_tasks.map((x) => x.field("Importance"))) / all_tasks.length;
 }
+function weighted_random_choice(choices, weights) {
+  let sum_weights = 0;
+  let cdf = [];
+  for (let weight of weights) {
+    sum_weights += weight;
+    cdf.push(weight / sum_weights);
+  }
+  return choices[find_closest_index(weights, Math.random())];
+}
+function find_closest_index(array, target) {
+  let delta = array.length - 1;
+  let index = delta;
+  while (delta > 0) {
+    delta = delta / 2;
+    if (array[index] > target) {
+      index = Math.round(index - delta);
+    } else if (array[index] < target) {
+      index = Math.round(index + delta);
+    } else {
+      break;
+    }
+  }
+  return index;
+}
+function unique(xs, f = id) {
+  let results = [];
+  for (let x of xs) {
+    if (results.map(f).indexOf(f(x)) == -1) {
+      results.push(x);
+    }
+  }
+  return results;
+}

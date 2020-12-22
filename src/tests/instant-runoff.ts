@@ -257,10 +257,6 @@ for (let i = 0; i < as.length; i++) {
   assert(as[i][1] == bs[i][1], "test of zip failed (3)");
 }
 
-// unique
-let dups = [3, 8, 2, 9, 7, 7, 8, 1, 8, 3];
-assert(array_equals(unique(dups), [3, 8, 2, 9, 7, 1]), "test of unique failed");
-
 // by id
 init_sim();
 assert(by_id(lib().entries()[0]) == 0, "test of by_id failed");
